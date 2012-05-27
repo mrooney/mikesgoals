@@ -1,3 +1,4 @@
-django==1.4
-python-dateutil
 django-jinja
+django==1.4
+python-cjson
+python-dateutil

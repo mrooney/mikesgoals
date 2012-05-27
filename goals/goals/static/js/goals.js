@@ -1,8 +1,33 @@
+goals = {}
+
+goals.api = function(action, element) {
+    var name = element.data('name');
+    var date = element.data('date');
+    $.get('/api/check', {action: action, name: name, date: date})
+        .success(function() {
+            console.log('success');
+        })
+        .error(function() {
+            alert('whoops');
+        });
+}
+
+goals.increment = function() {
+    var element = $(this);
+    var img = $('<div class="checkbox"></div>');
+    img.appendTo(element);
+    goals.api('increment', element);
+}
+
+goals.decrement = function(event) {
+    var element = $(this);
+    event.stopPropagation();
+    var parent = element.parent();
+    element.remove();
+    goals.api('decrement', parent);
+}
+
 $(function() {
-    console.log('hello');
-    $('td.trackBox').click(function() {
-        var goal_name = $(this).data('name');
-        var goal_date = $(this).data('date');
-        console.log(goal_name, goal_date);
-    });
+    $('td.trackBox').click(goals.increment);
+    $('td.trackBox').on('click', '.checkbox', goals.decrement);
 });

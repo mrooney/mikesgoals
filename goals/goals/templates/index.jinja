@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Mike's Goals</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/goals.css"/>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/goals.js"></script>
+</head>
+<body>
+    <table id="trackerTable">
+    {% for goal in goals %}
+        <tr class="dayOn">
+            <td class="goalTitle">
+                <span class="control">{{ goal.name }}</span>
+            </td>
+            {% for date in goal.get_trailing_dates() %}
+                <td class="trackBox" data-name="{{ goal.name }}" data-date="{{ date }}">
+                    {{ date }}
+                    <img src="http://www.joesgoals.com/images/plus.gif"/>
+                </td>
+            {% endfor %}
+    {% endfor %}
+    </table>
+</body>
+</html>

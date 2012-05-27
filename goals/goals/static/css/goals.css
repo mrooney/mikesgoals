@@ -1,0 +1,95 @@
+#trackerTable {
+    width:728px;
+    margin:auto;
+}
+#trackerTable td {
+    border:3px solid #BBDDFF;
+}
+#trackerTable .dayScore {
+    text-align:center;
+    font-size:85%;
+}
+#trackerTable .goalStats {
+    font-size:85%;
+    text-align:left;
+    width:90px;
+    padding-left:3px;
+}
+#trackerTable .goalStats span {
+    padding-top:3px;
+}
+
+
+#trackerTable .dayHead {
+    text-align:center;
+    width:60px;
+}
+p{
+    margin-top:10px;
+}
+#trackerTable .dayHead .dayOfWeek {
+    font-weight:bold;
+}
+#trackerTable .dayHead .weekEnd {
+    font-weight:bold;
+    color:green;
+}
+#trackerTable .dayHead .day {
+    font-weight:bold;
+    font-size:75%;
+    color:black;
+}
+#trackerTable .activeDay {
+    background-color:wheat;
+}
+
+#trackerTable .futureDay {
+    background-color:#F5F5DC;
+}
+
+#trackerTable .dayOn .trackBox {
+    width:60px;
+    height:40px;
+    font-size:80%;
+    text-align:center;
+    cursor:pointer;
+    background-color:white;
+}
+#trackerTable .dayOff .trackBox {
+    width:60px;
+    height:40px;
+    font-size:80%;
+    text-align:center;
+    cursor:pointer;
+    background-color:#F5F5DC;
+}
+
+#trackerTable .dayOn .notday {
+    width:60px;
+    height:40px;
+    font-size:80%;
+    text-align:center;
+    cursor:default;
+    background-color:#BBDDFF;
+}
+#trackerTable .dayOff .notday {
+    width:60px;
+    height:40px;
+    font-size:80%;
+    text-align:center;
+    cursor:default;
+    background-color:#BBDDFF;
+}
+
+#trackerTable tr .goalTitle {
+    width:140px;
+    height:40px;
+    text-align:right;
+    padding-right:8px;
+}
+
+#trackerTable tr .goalTitle span {
+    font-size:110%;
+    cursor:pointer;
+}
+

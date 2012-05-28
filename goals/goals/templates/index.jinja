@@ -7,9 +7,10 @@
 </head>
 <body>
     Welcome back, {{ request.user }}!
+    <div id="container">
     <table id="trackerTable">
     {% for goal in goals %}
-        <tr class="dayOn">
+        <tr>
             <td class="goalTitle">
                 <span class="control">{{ goal.name }}</span>
             </td>
@@ -23,5 +24,6 @@
             {% endfor %}
     {% endfor %}
     </table>
+    </div>
 </body>
 </html>

@@ -4,98 +4,56 @@
     background: url(/static/img/plus.gif);
     display: inline-block;
 }
+
+#container {
+    width: 800px;
+    margin: auto;
+    background: #bdf;
+    border-radius: 6px;
+    padding: 10px;
+}
+
 #trackerTable {
-    width:728px;
-    margin:auto;
+    width: 728px;
+    margin: auto;
 }
+
 #trackerTable td {
-    border:3px solid #BBDDFF;
-}
-#trackerTable .dayScore {
-    text-align:center;
-    font-size:85%;
-}
-#trackerTable .goalStats {
-    font-size:85%;
-    text-align:left;
-    width:90px;
-    padding-left:3px;
-}
-#trackerTable .goalStats span {
-    padding-top:3px;
+    border: 2px solid #bdf;
 }
 
-
-#trackerTable .dayHead {
-    text-align:center;
-    width:60px;
-}
-p{
-    margin-top:10px;
-}
-#trackerTable .dayHead .dayOfWeek {
-    font-weight:bold;
-}
-#trackerTable .dayHead .weekEnd {
-    font-weight:bold;
-    color:green;
-}
-#trackerTable .dayHead .day {
-    font-weight:bold;
-    font-size:75%;
-    color:black;
-}
-#trackerTable .activeDay {
-    background-color:wheat;
+#trackerTable td:last-child {
+    border: 2px solid wheat;
 }
 
-#trackerTable .futureDay {
-    background-color:#F5F5DC;
+#trackerTable tr td {
+    background: white;
 }
 
-#trackerTable .dayOn .trackBox {
-    width:60px;
-    height:40px;
-    font-size:80%;
-    text-align:center;
-    cursor:pointer;
-    background-color:white;
-}
-#trackerTable .dayOff .trackBox {
-    width:60px;
-    height:40px;
-    font-size:80%;
-    text-align:center;
-    cursor:pointer;
-    background-color:#F5F5DC;
+#trackerTable tr:nth-child(even) td {
+    background: #F5F5DC;
 }
 
-#trackerTable .dayOn .notday {
-    width:60px;
-    height:40px;
-    font-size:80%;
-    text-align:center;
-    cursor:default;
-    background-color:#BBDDFF;
+#trackerTable tr td:first-child {
+    background: #bdf;
 }
-#trackerTable .dayOff .notday {
-    width:60px;
-    height:40px;
-    font-size:80%;
-    text-align:center;
-    cursor:default;
-    background-color:#BBDDFF;
+
+#trackerTable .trackBox {
+    width: 60px;
+    height: 40px;
+    font-size: 0.8em;
+    text-align: center;
+    cursor: pointer;
 }
 
 #trackerTable tr .goalTitle {
-    width:140px;
-    height:40px;
-    text-align:right;
-    padding-right:8px;
+    width: 140px;
+    height: 40px;
+    text-align: right;
+    padding-right: 8px;
 }
 
 #trackerTable tr .goalTitle span {
-    font-size:110%;
-    cursor:pointer;
+    font-size: 1.1em;
+    cursor: pointer;
 }
-

@@ -1,5 +1,7 @@
-from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
+
 from goals.models import Goal
 
 import cjson
@@ -21,6 +23,12 @@ def api_check(request):
     goal_id = request.GET['id']
     goal_date = request.GET['date']
     action = request.GET['action']
+
+    if not Goal.objects.filter(id=goal_id, user__id=request.user.id).count():
+        raise Exception("401 Unauthorized")
+
+    incr = 1 if action == "increment" else -1
+    Goal.objects.get(id=goal_id).incr(goal_date, incr)
 
     return {'success': True}
 

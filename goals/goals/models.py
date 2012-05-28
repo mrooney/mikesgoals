@@ -1,8 +1,11 @@
 from django.db import models
 from django.contrib import auth
 
-import datetime
 from dateutil.relativedelta import relativedelta
+import redis
+
+import datetime
+import re
 
 class Goal(models.Model):
     FREQ_DAILY = 1
@@ -19,6 +22,27 @@ class Goal(models.Model):
     name = models.TextField()
     frequency = models.IntegerField(choices=FREQ_CHOICES)
     user = models.ForeignKey(auth.models.User)
+
+    redis = redis.StrictRedis(host='localhost', port=6379, db=0)
+
+    def massage_date(self, date):
+        if isinstance(date, datetime.date):
+            date = date.strftime("%Y-%m-%d")
+        assert re.match("^\d{4}-\d{2}-\d{2}$", date)
+        return date
+
+    def get_date_key(self, date):
+        date_str = self.massage_date(date)
+        key = "user:%s:goal:%s:%s" % (self.user_id, self.id, date_str)
+        return key
+
+    def get_date_count(self, date):
+        key = self.get_date_key(date)
+        count = int(self.redis.get(key) or 0)
+        return count
+
+    def incr(self, date, incr):
+        return self.redis.incr(self.get_date_key(date), incr)
 
     def get_trailing_dates(self, for_date=None):
         if for_date is None:

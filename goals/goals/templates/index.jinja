@@ -6,7 +6,7 @@
     <script type="text/javascript" src="/static/js/goals.js"></script>
 </head>
 <body>
-{{ request.user }}
+    {{ request.user }}
     <table id="trackerTable">
     {% for goal in goals %}
         <tr class="dayOn">
@@ -15,7 +15,10 @@
             </td>
             {% for date in goal.get_trailing_dates() %}
                 <td class="trackBox" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
-                    {{ date }}
+                {{ date }}
+                {% for i in range(goal.get_date_count(date)) %}
+                    <div class="checkbox"></div>
+                {% endfor %}
                 </td>
             {% endfor %}
     {% endfor %}

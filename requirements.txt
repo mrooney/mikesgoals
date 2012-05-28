@@ -2,4 +2,5 @@ django-jinja
 django==1.4
 python-cjson
 python-dateutil
+redis
 South

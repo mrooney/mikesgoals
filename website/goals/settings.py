@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'django_jinja',
     'south',
     'djsupervisor',
+    'gunicorn',
 )
 
 # A sample logging configuration. The only tangible logging

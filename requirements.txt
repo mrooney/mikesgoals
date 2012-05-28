@@ -1,6 +1,7 @@
 django-jinja
 django-supervisor
 django==1.4
+gunicorn
 python-cjson
 python-dateutil
 redis

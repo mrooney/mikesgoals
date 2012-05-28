@@ -19,6 +19,18 @@ def goals(request):
     return render_to_response("index.jinja", {"goals": goals, "request": request})
 
 @json_response
+def api_goal_edit(request):
+    goal_id = int(request.GET['goal'])
+    goal_name = request.GET['name']
+
+    if not Goal.objects.filter(id=goal_id, user__id=request.user.id).count():
+        raise Exception("401 Unauthorized")
+
+    Goal.objects.filter(id=goal_id).update(name=goal_name)
+
+    return {'success': True}
+
+@json_response
 def api_check(request):
     goal_id = request.GET['id']
     goal_date = request.GET['date']

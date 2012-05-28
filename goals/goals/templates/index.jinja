@@ -12,11 +12,12 @@
     {% else %}
         <a href="/login">Login</a>
     {% endif %}
+
     <div id="container">
     <table id="trackerTable">
     {% for goal in goals %}
         <tr>
-            <td class="goalTitle">
+            <td class="goalTitle" data-goal-id="{{ goal.id }}" data-goal-name="{{ goal.name }}">
                 <span class="control">{{ goal.name }}</span>
             </td>
             {% for date in goal.get_trailing_dates() %}

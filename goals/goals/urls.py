@@ -22,4 +22,5 @@ urlpatterns = patterns('',
 
     # API
     url(r'^api/check$', views.api_check),
+    url(r'^api/goal_edit$', views.api_goal_edit),
 )

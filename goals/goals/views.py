@@ -15,7 +15,7 @@ def json_response(func):
 def goals(request):
     goals = []
     if request.user.is_authenticated():
-        goals = request.user.goal_set.all()
+        goals = request.user.goal_set.order_by('frequency')
     return render_to_response("index.jinja", {"goals": goals, "request": request})
 
 @json_response

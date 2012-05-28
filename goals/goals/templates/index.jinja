@@ -6,7 +6,12 @@
     <script type="text/javascript" src="/static/js/goals.js"></script>
 </head>
 <body>
-    Welcome back, {{ request.user }}!
+    {% if request.user.is_authenticated() %}
+        Welcome back, {{ request.user }}!
+        <a href="/logout">Logout</a>
+    {% else %}
+        <a href="/login">Login</a>
+    {% endif %}
     <div id="container">
     <table id="trackerTable">
     {% for goal in goals %}

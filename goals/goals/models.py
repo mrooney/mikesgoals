@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import auth
 
 import datetime
 from dateutil.relativedelta import relativedelta
@@ -17,6 +18,7 @@ class Goal(models.Model):
 
     name = models.TextField()
     frequency = models.IntegerField(choices=FREQ_CHOICES)
+    user = models.ForeignKey(auth.models.User)
 
     def get_trailing_dates(self, for_date=None):
         if for_date is None:

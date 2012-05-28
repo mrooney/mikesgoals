@@ -11,14 +11,16 @@ def json_response(func):
 
 
 def goals(request):
-    goals = Goal.objects.all()
-    return render_to_response("index.jinja", {"goals": goals})
+    goals = []
+    if request.user.is_authenticated():
+        goals = request.user.goal_set.all()
+    return render_to_response("index.jinja", {"goals": goals, "request": request})
 
 @json_response
 def api_check(request):
-    name = request.GET['name']
-    date = request.GET['date']
+    goal_id = request.GET['id']
+    goal_date = request.GET['date']
     action = request.GET['action']
 
-    return {'success': True, 'date': date, 'name': name, 'action': action}
+    return {'success': True}
 

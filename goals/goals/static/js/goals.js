@@ -1,14 +1,13 @@
 goals = {}
 
 goals.api = function(action, element) {
-    var name = element.data('name');
-    var date = element.data('date');
-    $.get('/api/check', {action: action, name: name, date: date})
+    var id = element.data('goal-id');
+    var date = element.data('goal-date');
+    $.get('/api/check', {action: action, id: id, date: date})
         .success(function() {
-            console.log('success');
         })
         .error(function() {
-            alert('whoops');
+            alert('Alas, an error has occurred.');
         });
 }
 

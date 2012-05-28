@@ -19,6 +19,16 @@ def goals(request):
     return render_to_response("index.jinja", {"goals": goals, "request": request})
 
 @json_response
+def api_goal_delete(request):
+    goal_id = int(request.GET['goal'])
+
+    if not Goal.objects.filter(id=goal_id, user__id=request.user.id).count():
+        raise Exception("401 Unauthorized")
+
+    Goal.objects.filter(id=goal_id).delete()
+    return {}
+
+@json_response
 def api_goal_edit(request):
     goal_id = int(request.GET['goal'])
     goal_name = request.GET['name']
@@ -27,8 +37,15 @@ def api_goal_edit(request):
         raise Exception("401 Unauthorized")
 
     Goal.objects.filter(id=goal_id).update(name=goal_name)
+    return {}
 
-    return {'success': True}
+@json_response
+def api_goal_new(request):
+    goal_name = request.GET['name']
+    goal_freq = request.GET['frequency']
+
+    Goal(name=goal_name, frequency=goal_freq, user=request.user).save()
+    return {}
 
 @json_response
 def api_check(request):
@@ -41,6 +58,5 @@ def api_check(request):
 
     incr = 1 if action == "increment" else -1
     Goal.objects.get(id=goal_id).incr(goal_date, incr)
-
-    return {'success': True}
+    return {}
 

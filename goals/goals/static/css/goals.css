@@ -1,7 +1,7 @@
 .checkbox {
     width: 16px;
     height: 16px;
-    background: url(http://www.joesgoals.com/images/plus.gif);
+    background: url(/static/img/plus.gif);
     display: inline-block;
 }
 #trackerTable {

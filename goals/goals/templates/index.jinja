@@ -6,7 +6,7 @@
     <script type="text/javascript" src="/static/js/goals.js"></script>
 </head>
 <body>
-    {{ request.user }}
+    Welcome back, {{ request.user }}!
     <table id="trackerTable">
     {% for goal in goals %}
         <tr class="dayOn">

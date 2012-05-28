@@ -1,6 +1,8 @@
 django-jinja
+django-supervisor
 django==1.4
 python-cjson
 python-dateutil
 redis
 South
+supervisor

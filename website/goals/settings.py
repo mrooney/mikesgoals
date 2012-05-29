@@ -1,6 +1,7 @@
 # Django settings for goals project.
 
-DEBUG = True
+import sys
+DEBUG = sys.platform == 'darwin'
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

@@ -3,4 +3,5 @@
 *.pyc
 *.rdb
 *.sqlite
+*.templated
 ve/

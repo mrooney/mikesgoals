@@ -1,9 +1,10 @@
+South
 django-jinja
 django-supervisor
 django==1.4
+gevent
 gunicorn
 python-cjson
 python-dateutil
 redis
-South
 supervisor

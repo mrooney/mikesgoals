@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib import auth
+from django.contrib.auth.models import User
 
 from dateutil.relativedelta import relativedelta
 import redis
@@ -21,7 +21,7 @@ class Goal(models.Model):
 
     name = models.TextField()
     frequency = models.IntegerField(choices=FREQ_CHOICES)
-    user = models.ForeignKey(auth.models.User)
+    user = models.ForeignKey(User)
 
     redis = redis.StrictRedis(host='localhost', port=6379, db=0)
 

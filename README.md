@@ -3,11 +3,10 @@ Pre-requisites:
 * python
 * pip
 * redis
-* libevent
 * [Optional] virtualenv
 
-OSX: brew install redis libevent
-Ubuntu: apt-get install redis-server libevent libc
+OSX: brew install redis
+Ubuntu: apt-get install redis-server
 finally: easy_install pip && pip install virtualenv
 
 Installation:

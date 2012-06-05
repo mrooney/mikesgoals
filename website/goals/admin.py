@@ -1,5 +1,5 @@
-import goals
+from goals import models
 
 from django.contrib import admin
 
-admin.site.register(goals.models.Goal)
+admin.site.register(models.Goal)

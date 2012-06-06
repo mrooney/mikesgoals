@@ -1,20 +1,20 @@
-Pre-requisites:
-===============
+# Pre-requisites:
 * python
 * pip
+ * sudo easy_install pip
 * redis
-* [Optional] virtualenv
+ * OSX: brew install redis
+ * Ubuntu: sudo apt-get install redis-server
+* [optional] virtualenv
+ * pip install virtualenv
 
-OSX: brew install redis
-Ubuntu: apt-get install redis-server
-finally: easy_install pip && pip install virtualenv
-
-Installation:
-=============
+# Installation:
 
 From the directory of the repository:
-#.[Optional] virtualenv --no-site-packages ve && source ve/bin/activate
-#.pip install -r requirements.txt
-# website/manage.py syncdb
-# website/manage.py migrate goals
-# website/manage.py supervisor
+
+1. [optional] virtualenv --no-site-packages ve && source ve/bin/activate
+1. pip install -r requirements.txt
+1. cd website
+1. ./manage.py syncdb
+1. ./manage.py migrate goals
+1. ./manage.py supervisor

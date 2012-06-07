@@ -4,4 +4,4 @@
 *.rdb
 *.sqlite
 *.templated
-ve/
+env/

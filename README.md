@@ -12,7 +12,7 @@
 
 From the directory of the repository:
 
-1. [optional] virtualenv --no-site-packages ve && source ve/bin/activate
+1. [optional] virtualenv --no-site-packages env && source env/bin/activate
 1. pip install -r requirements.txt
 1. cd website
 1. ./manage.py syncdb

@@ -71,4 +71,17 @@ $(function() {
     $('td.goalTitle span.name').click(goals.edit);
     $('td.goalTitle span.delete').click(goals.delete);
     $('a.newGoal').click(goals.new);
+
+    // Figure out how many milliseconds until midnight, when we'll reload.
+    var tomorrow = new Date();
+    tomorrow.setTime(tomorrow.getTime() + 60*60*24*1000);
+    tomorrow.setHours(0);
+    tomorrow.setMinutes(0);
+    tomorrow.setSeconds(0);
+    var millisecondsToTomorrow = tomorrow - (new Date());
+    // Set a timeout to reload at midnight, and at that point reload every 24h.
+    setTimeout(function() {
+        window.location.reload();
+        setInterval(window.location.reload, 60*60*24*1000);
+    }, millisecondsToTomorrow);
 });

@@ -1,50 +1,29 @@
-<html>
-<head>
-    <title>Mike's Goals</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/goals.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
-    <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="/static/js/goals.js"></script>
-</head>
-<body>
-    {% if request.user.is_authenticated() %}
-        Welcome back, {{ request.user }}!
-        <a href="/logout">Logout</a>
-        <a href="#" class="newGoal">New Goal</a>
-    {% else %}
-        <a href="/login">Login</a>
-    {% endif %}
+{% extends "base.jinja" %}
+{% block content %}
+{% if request.user.is_authenticated() %}
+    Welcome back, {{ request.user }}!
+    <a href="/logout">Logout</a>
+    <a href="#" class="newGoal">New Goal</a>
+{% else %}
+    <a href="/login">Login</a>
+    <a href="/signup">Signup</a>
+{% endif %}
 
-    <div id="container">
-    <table id="trackerTable">
-    {% for goal in goals %}
-        <tr>
-            <td class="goalTitle" data-goal-id="{{ goal.id }}" data-goal-name="{{ goal.name }}">
-                <span class="delete">X</span>
-                <span class="name">{{ goal.name }}</span>
-            </td>
-            {% for date in goal.get_trailing_dates() %}
-                <td class="trackBox" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
-                {{ date }}
-                {% for i in range(goal.get_date_count(date)) %}
-                    <div class="checkbox"></div>
-                {% endfor %}
-                </td>
+<table id="trackerTable">
+{% for goal in goals %}
+    <tr>
+        <td class="goalTitle" data-goal-id="{{ goal.id }}" data-goal-name="{{ goal.name }}">
+            <span class="delete">X</span>
+            <span class="name">{{ goal.name }}</span>
+        </td>
+        {% for date in goal.get_trailing_dates() %}
+            <td class="trackBox" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
+            {{ date }}
+            {% for i in range(goal.get_date_count(date)) %}
+                <div class="checkbox"></div>
             {% endfor %}
-    {% endfor %}
-    </table>
-    </div>
-    
-    <div id="newgoal" class="hidden">
-        Goal Name <input type="text" name="goalname"><br/>
-        Frequency
-        <select name="goalfrequency">
-            <option>Daily</option>
-            <option>Weekly</option>
-            <option>Monthly</option>
-            <option>Yearly</option>
-        </select>
-        <input type="button" class="addgoal" value="Add Goal"></input>
-    </div>
-</body>
-</html>
+            </td>
+        {% endfor %}
+{% endfor %}
+</table>
+{% endblock %}

@@ -7,7 +7,7 @@
 
 #container {
     width: 800px;
-    margin: auto;
+    margin: 20px auto 0px auto;
     background: #bdf;
     border-radius: 6px;
     padding: 10px;

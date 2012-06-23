@@ -18,6 +18,9 @@ def goals(request):
         goals = request.user.goal_set.order_by('frequency')
     return render_to_response("index.jinja", {"goals": goals, "request": request})
 
+def signup(request):
+    return render_to_response("signup.jinja", {})
+
 @json_response
 def api_goal_delete(request):
     goal_id = int(request.GET['goal'])

@@ -2,6 +2,7 @@
 <head>
     <title>Mike's Goals</title>
     <link rel="stylesheet" type="text/css" href="/static/css/goals.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
     <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="/static/js/goals.js"></script>
 </head>
@@ -32,6 +33,18 @@
             {% endfor %}
     {% endfor %}
     </table>
+    </div>
+    
+    <div id="newgoal" class="hidden">
+        Goal Name <input type="text" name="goalname"><br/>
+        Frequency
+        <select name="goalfrequency">
+            <option>Daily</option>
+            <option>Weekly</option>
+            <option>Monthly</option>
+            <option>Yearly</option>
+        </select>
+        <input type="button" class="addgoal" value="Add Goal"></input>
     </div>
 </body>
 </html>

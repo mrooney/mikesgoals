@@ -1,8 +1,10 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
+from django.template import RequestContext
 
-from goals.models import Goal
+from goals.models import Goal, User
 
 import cjson
 
@@ -19,7 +21,29 @@ def goals(request):
     return render_to_response("index.jinja", {"goals": goals, "request": request})
 
 def signup(request):
-    return render_to_response("signup.jinja", {})
+    context = RequestContext(request)
+    if request.method == "GET":
+        return render_to_response("signup.jinja", context)
+
+    # Validation.
+    email = request.POST.get("email")
+    password = request.POST.get("password")
+    error = None
+
+    if not ('@' in email or '.' in email):
+        error = "Please enter a valid email address."
+    elif len(password) < 6:
+        error = "Passwords must be at least 6 characters."
+
+    if error:
+        context['error'] = error
+        return render_to_response("signup.jinja", context)
+
+    # They passed, create the user, log in, and head home.
+    user = User.objects.create_user(email, email, password)
+    user = authenticate(username=email, password=password)
+    login(request, user)
+    return redirect("/")
 
 @json_response
 def api_goal_delete(request):

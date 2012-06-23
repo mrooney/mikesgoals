@@ -13,6 +13,10 @@
     padding: 10px;
 }
 
+div.error {
+    background: red;
+}
+
 #trackerTable {
     width: 728px;
     margin: auto;

@@ -56,7 +56,8 @@ goals.shownew = function(event) {
         .success(goals.reload);*/
 }
 
-goals.addnew = function() {}
+goals.addnew = function() {
+}
 
 goals.delete = function(event) {
     var element = $(this).parent();

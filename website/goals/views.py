@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth import authenticate, login
+from django.contrib import auth
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
@@ -19,6 +19,10 @@ def goals(request):
     if request.user.is_authenticated():
         goals = request.user.goal_set.order_by('frequency')
     return render_to_response("index.jinja", {"goals": goals, "request": request})
+
+def logout(request):
+    auth.logout(request)
+    return redirect("/")
 
 def signup(request):
     context = RequestContext(request)
@@ -41,8 +45,8 @@ def signup(request):
 
     # They passed, create the user, log in, and head home.
     user = User.objects.create_user(email, email, password)
-    user = authenticate(username=email, password=password)
-    login(request, user)
+    user = auth.authenticate(username=email, password=password)
+    auth.login(request, user)
     return redirect("/")
 
 @json_response

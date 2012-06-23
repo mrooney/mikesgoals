@@ -19,8 +19,8 @@ urlpatterns = patterns('',
     url(r'^login$', 'django.contrib.auth.views.login', {'template_name': 'admin/login.html'}),
     (r'^accounts/$', 'django.views.generic.simple.redirect_to', {'url': '/'}),
     (r'^accounts/profile/$', 'django.views.generic.simple.redirect_to', {'url': '/'}),
-    url(r'^logout$', 'django.contrib.auth.views.logout'),
 
+    url(r'^logout$', views.logout),
     url(r'^signup$', views.signup),
 
     # API

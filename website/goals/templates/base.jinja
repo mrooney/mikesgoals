@@ -17,18 +17,6 @@
             <a href="/signup">Signup</a>
         {% endif %}
 
-        <div id="newgoal" class="hidden">
-            Goal Name <input type="text" name="goalname"><br/>
-            Frequency
-            <select name="goalfrequency">
-                <option>Daily</option>
-                <option>Weekly</option>
-                <option>Monthly</option>
-                <option>Yearly</option>
-            </select>
-            <input type="button" class="addgoal" value="Add Goal"></input>
-        </div>
-
         {% block content %}{% endblock %}
     </div>
 </body>

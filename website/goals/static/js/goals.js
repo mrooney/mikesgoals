@@ -45,18 +45,14 @@ goals.edit = function(event) {
     }
 }
 
-goals.shownew = function(event) {
-    $("#newgoal").removeClass("hidden");
-    /*var name = prompt("Goal name");
+goals.new = function(event) {
+    var name = prompt("Goal name");
     if (!name) { return; }
     var frequency = prompt("Frequency", 1);
     if (!frequency) { return; }
     $.get('/api/goal_new', {name: name, frequency: frequency})
         .error(goals.on_error)
-        .success(goals.reload);*/
-}
-
-goals.addnew = function() {
+        .success(goals.reload);
 }
 
 goals.delete = function(event) {
@@ -68,12 +64,13 @@ goals.delete = function(event) {
     }
 }
 
+
 $(function() {
     $('td.trackBox').click(goals.increment);
     $('td.trackBox').on('click', '.checkbox', goals.decrement);
     $('td.goalTitle span.name').click(goals.edit);
     $('td.goalTitle span.delete').click(goals.delete);
-    $('a.newGoal').click(goals.shownew);
+    $('a.newGoal').click(goals.new);
 
     // Figure out how many milliseconds until midnight, when we'll reload.
     var tomorrow = new Date();

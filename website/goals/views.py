@@ -8,6 +8,12 @@ from goals.models import Goal, User
 
 import cjson
 
+def r2r(template, request, data=None):
+    if data is None:
+        data = {}
+    data['request'] = request
+    return render_to_response(template, data, context_instance=RequestContext(request))
+
 def json_response(func):
     def decorated(*args, **kwargs):
         return HttpResponse(cjson.encode(func(*args, **kwargs)), mimetype="application/json")
@@ -18,16 +24,15 @@ def goals(request):
     goals = []
     if request.user.is_authenticated():
         goals = request.user.goal_set.order_by('frequency')
-    return render_to_response("index.jinja", {"goals": goals, "request": request})
+    return r2r("index.jinja", request, {"goals": goals})
 
 def logout(request):
     auth.logout(request)
     return redirect("/")
 
 def signup(request):
-    context = RequestContext(request)
     if request.method == "GET":
-        return render_to_response("signup.jinja", context_instance=context)
+        return r2r("signup.jinja", request)
 
     # Validation.
     email = request.POST.get("email")
@@ -40,8 +45,7 @@ def signup(request):
         error = "Passwords must be at least 6 characters."
 
     if error:
-        context['error'] = error
-        return render_to_response("signup.jinja", context)
+        return r2r("signup.jinja", request, {'error': error})
 
     # They passed, create the user, log in, and head home.
     user = User.objects.create_user(email, email, password)

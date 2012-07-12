@@ -27,7 +27,7 @@ def logout(request):
 def signup(request):
     context = RequestContext(request)
     if request.method == "GET":
-        return render_to_response("signup.jinja", context)
+        return render_to_response("signup.jinja", context_instance=context)
 
     # Validation.
     email = request.POST.get("email")

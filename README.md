@@ -5,7 +5,7 @@ found to add clutter and interaction complexity (goal weight, negative
 goals, statistics), while adding the ability to track weekly, monthly,
 and yearly goals, besides just daily goals.
 
-It lives at http://goals.rowk.com. Sign-up ability coming soon :]
+It lives at http://goals.rowk.com.
 
 # Pre-requisites:
 * python

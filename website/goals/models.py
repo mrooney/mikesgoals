@@ -31,9 +31,12 @@ class Goal(models.Model):
         assert re.match("^\d{4}-\d{2}-\d{2}$", date)
         return date
 
+    def get_goal_key(self):
+        return "user:%s:goal:%s" % (self.user_id, self.id)
+
     def get_date_key(self, date):
         date_str = self.massage_date(date)
-        key = "user:%s:goal:%s:%s" % (self.user_id, self.id, date_str)
+        key = "%s:%s" % (self.get_goal_key(), date_str)
         return key
 
     def get_date_count(self, date):

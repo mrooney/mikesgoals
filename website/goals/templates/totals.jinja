@@ -1,0 +1,9 @@
+{% extends "base.jinja" %}
+{% block content %}
+<table id="totals">
+<tr><th>Date</th><th style='text-align:right;'>Count</th></tr>
+{% for total in totals %}
+<tr><td>{{total.date}}</td><td style='text-align:right;'>{{total.count}}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

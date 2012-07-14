@@ -26,6 +26,17 @@ def goals(request):
         goals = request.user.goal_set.order_by('frequency')
     return r2r("index.jinja", request, {"goals": goals})
 
+def totals(request):
+    totals = []
+    if request.user.is_authenticated():
+        r = Goal().redis
+        pipe = r.pipeline()
+        for k in r.keys():
+            pipe.get(k)
+        totals = [{'date': k, 'count': c} for k in r.keys() for c in pipe.execute()]
+        print totals
+    return r2r("totals.jinja",request,{'totals':totals})
+
 def logout(request):
     auth.logout(request)
     return redirect("/")

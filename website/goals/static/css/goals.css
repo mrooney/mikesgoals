@@ -61,3 +61,16 @@ div.error {
     font-size: 1.1em;
     cursor: pointer;
 }
+div#new_goal{
+    border:1px solid #bdf;
+    position: absolute;
+    top:20px;
+    padding:30px;
+    background-color: #F5F5DC;
+    font-size: 13px;
+    display: none;
+}
+div#new_goal div#buttons{
+    padding-left: 60px;
+    margin-top: 40px;
+}

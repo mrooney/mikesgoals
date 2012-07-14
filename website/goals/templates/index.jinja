@@ -17,4 +17,23 @@
         {% endfor %}
 {% endfor %}
 </table>
+ <div id='new_goal'>
+        <form  action='#'>
+        <div>Goal<br/> 
+            <input type='text' name='name'>
+        </div>
+        <div>Frequency<br/>
+        <select name='frequency'>
+            <option value='1'>Daily</option>
+            <option value='2'>Weekly</option>
+            <option value='3'>Monthly</option>
+            <option value='4'>Yearly</option>
+        </select>
+        </div>
+        <div id='buttons'> 
+            <input type='submit' value='Create'>
+            <input type='button' value='Cancel'>
+         </div>
+        </form>
+</div>
 {% endblock %}

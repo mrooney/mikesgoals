@@ -46,14 +46,25 @@ goals.edit = function(event) {
 }
 
 goals.new = function(event) {
-    var name = prompt("Goal name");
-    if (!name) { return; }
-    var frequency = prompt("Frequency", 1);
-    if (!frequency) { return; }
-    $.get('/api/goal_new', {name: name, frequency: frequency})
-        .error(goals.on_error)
-        .success(goals.reload);
+    //var name = prompt("Goal name");
+    //if (!name) { return; }
+    //var frequency = prompt("Frequency", 1);
+    //if (!frequency) { return; }
+    $('div#new_goal').slideDown();
+    $("input[type='button']").click(function(){$('div#new_goal').slideUp();})
+    $('form').submit(function(){
+        var n = $("input[name='name']")
+        if($.trim(n.val()).length == 0){ n.css({'border':'1px solid red'})}
+        else{
+          n.css({'border':'1px solid #DDDDDD'});
+         $.get('/api/goal_new',$('form').serialize(), function(){$('div#new_goal').slideUp()})
+         .error(goals.on_error)
+         .success(goals.reload);
+        }
+ return false
+ })
 }
+ 
 
 goals.delete = function(event) {
     var element = $(this).parent();

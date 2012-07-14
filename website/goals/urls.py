@@ -14,6 +14,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', views.goals, name="home"),
+    url(r'^totals/$', views.totals, name="totals"),
+
 
     # Auth
     url(r'^login$', 'django.contrib.auth.views.login', {'template_name': 'admin/login.html'}),

@@ -12,6 +12,7 @@
             Welcome back, {{ request.user }}!
             <a href="/logout">Logout</a>
             <a href="#" class="newGoal">New Goal</a>
+            <a href="/totals">Totals</a>
         {% else %}
             <a href="/login">Login</a>
             <a href="/signup">Signup</a>
@@ -19,5 +20,8 @@
 
         {% block content %}{% endblock %}
     </div>
+
+   
+
 </body>
 </html>

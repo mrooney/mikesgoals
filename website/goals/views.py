@@ -34,7 +34,6 @@ def totals(request):
         for k in r.keys():
             pipe.get(k)
         totals = [{'date': k, 'count': c} for k in r.keys() for c in pipe.execute()]
-        print totals
     return r2r("totals.jinja",request,{'totals':totals})
 
 def logout(request):

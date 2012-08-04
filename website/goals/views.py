@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_exempt
 
 from goals.models import Goal, User
 
@@ -36,6 +37,7 @@ def totals(request):
         totals = [{'date': k, 'count': c} for k in r.keys() for c in pipe.execute()]
     return r2r("totals.jinja",request,{'totals':totals})
 
+@csrf_exempt
 def github(request):
     from django.conf import settings
     import subprocess

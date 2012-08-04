@@ -1,7 +1,9 @@
 # Django settings for goals project.
-
+import os
 import sys
+
 DEBUG = True #sys.platform == 'darwin'
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

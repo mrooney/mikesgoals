@@ -36,6 +36,14 @@ def totals(request):
         totals = [{'date': k, 'count': c} for k in r.keys() for c in pipe.execute()]
     return r2r("totals.jinja",request,{'totals':totals})
 
+def github(request):
+    from django.conf import settings
+    import subprocess
+    pid = open(settings.PROJECT_PATH+"/../run/gunicorn.pid").read().strip()
+    subprocess.check_call(["git", "pull"], cwd=settings.PROJECT_PATH)
+    subprocess.check_call(["kill", "-s", "SIGHUP", pid], cwd=settings.PROJECT_PATH)
+    return HttpResponse()
+
 def logout(request):
     auth.logout(request)
     return redirect("/")

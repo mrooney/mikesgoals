@@ -15,6 +15,7 @@ urlpatterns = patterns('',
 
     url(r'^$', views.goals, name="home"),
     url(r'^totals/$', views.totals, name="totals"),
+    url(r'^github/$', views.github, name="github"),
 
 
     # Auth

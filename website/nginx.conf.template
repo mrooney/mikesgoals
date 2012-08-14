@@ -1,35 +1,35 @@
 worker_processes 1;
 
-pid {nginx_pid_filename};
+pid {pidfile};
 error_log {project_dir}/run/nginx.error.log;
 
-events {
+events {{
     worker_connections 1024;
-}
+}}
 
-http {
+http {{
     include nginx.mime.types;
     default_type application/octet-stream;
     access_log {project_dir}/run/nginx.access.log;
     sendfile on;
 
-    upstream gunicorn {
-        server 127.0.0.1:{gunicorn} fail_timeout=0;
-    }
+    upstream gunicorn {{
+        server 127.0.0.1:31511 fail_timeout=0;
+    }}
 
-    server {
-        listen   *:54030;
+    server {{
+        listen   *:{port};
 
-        location /static/ {
+        location /static/ {{
             #expires max;
             alias {project_dir}/goals/static/;
-        }
+        }}
 
-        location /favicon.ico {
+        location /favicon.ico {{
             alias {project_dir}/goals/static/img/plus.gif;
-        }
+        }}
 
-        location / {
+        location / {{
             proxy_pass_header Server;
             proxy_set_header Host $http_host;
             proxy_redirect off;
@@ -38,6 +38,6 @@ http {
             proxy_connect_timeout 10;
             proxy_read_timeout 10;
             proxy_pass http://gunicorn/;
-        }
-    }
-}
+        }}
+    }}
+}}

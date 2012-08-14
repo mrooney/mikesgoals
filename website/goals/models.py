@@ -23,7 +23,7 @@ class Goal(models.Model):
     frequency = models.IntegerField(choices=FREQ_CHOICES)
     user = models.ForeignKey(User)
 
-    redis = redis.StrictRedis(host='localhost', port=6379, db=0)
+    redis = redis.StrictRedis(host='localhost', port=15126, db=0)
 
     def massage_date(self, date):
         if isinstance(date, datetime.date):

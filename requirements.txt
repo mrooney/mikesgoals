@@ -1,4 +1,3 @@
-git+https://github.com/mrooney/zdd
 South
 django-jinja
 django==1.4

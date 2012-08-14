@@ -130,7 +130,6 @@ INSTALLED_APPS = (
     'goals',
     'django_jinja',
     'south',
-    'djsupervisor',
     'gunicorn',
 )
 

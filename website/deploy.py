@@ -8,7 +8,7 @@ class Service(object):
         self.pidfile = os.path.abspath(pidfile)
         self.port = port
         self.start_cmd = start
-        self.restart_cmd = restart or ["True"]
+        self.restart_cmd = restart or ["true"]
         self.stop_cmd = stop or ["kill", "{pid}"]
         self.context = context or {}
 

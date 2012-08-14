@@ -3,5 +3,5 @@
 *.pyc
 *.rdb
 *.sqlite
-*.templated
 env/
+nginx.conf

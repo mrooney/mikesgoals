@@ -1,7 +1,8 @@
 South
 django-jinja
 #django-supervisor
-git+https://github.com/rfk/django-supervisor.git
+#git+https://github.com/rfk/django-supervisor.git
+git+https://github.com/mrooney/zdd
 django==1.4
 gevent
 gunicorn

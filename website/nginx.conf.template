@@ -1,8 +1,7 @@
-daemon off;
 worker_processes 1;
 
-pid {{ PROJECT_DIR }}/run/nginx.pid;
-error_log {{ PROJECT_DIR }}/run/nginx.error.log;
+pid {nginx_pid_filename};
+error_log {project_dir}/run/nginx.error.log;
 
 events {
     worker_connections 1024;
@@ -11,24 +10,23 @@ events {
 http {
     include nginx.mime.types;
     default_type application/octet-stream;
-    access_log {{ PROJECT_DIR }}/run/nginx.access.log;
+    access_log {project_dir}/run/nginx.access.log;
     sendfile on;
 
     upstream gunicorn {
-        server 127.0.0.1:54031 fail_timeout=0;
+        server 127.0.0.1:{gunicorn} fail_timeout=0;
     }
 
     server {
-        listen   54030;
-        server_name _;
+        listen   *:54030;
 
         location /static/ {
             #expires max;
-            alias {{ PROJECT_DIR }}/goals/static/;
+            alias {project_dir}/goals/static/;
         }
 
         location /favicon.ico {
-            alias {{ PROJECT_DIR }}/goals/static/img/plus.gif;
+            alias {project_dir}/goals/static/img/plus.gif;
         }
 
         location / {

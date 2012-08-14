@@ -96,16 +96,14 @@ services = {
         },
 }
 
-def deploy(services):
+def deploy(services, stop=False):
     for service in services:
-        if service.is_running():
+        if stop:
+            service.stop()
+        elif service.is_running():
             service.restart()
         else:
             service.start()
-
-def stop(services):
-    for service in services:
-        service.stop()
 
 if __name__ == "__main__":
     import sys
@@ -114,7 +112,4 @@ if __name__ == "__main__":
     for name, conf in services.items():
         service_objs.append(Service(name, **conf))
 
-    if len(sys.argv) > 1 and sys.argv[1] == "stop":
-        stop(service_objs)
-    else:
-        deploy(service_objs)
+    deploy(service_objs, stop="stop" in sys.argv)

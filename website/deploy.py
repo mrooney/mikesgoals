@@ -1,57 +1,73 @@
 #!/usr/bin/env python
 import os
+import re
 import subprocess
 
+from settings_deploy import SERVICES
+
 class Service(object):
-    def __init__(self, name, pidfile=None, port=None, start=None, restart=None, stop=None, context=None):
+    def __init__(self, name, port=None, cwd=None, start=None, restart=None, stop=None, context=None, daemonizes=True, templates=None):
         self.name = name
-        self.pidfile = os.path.abspath(pidfile)
         self.port = port
+        self.cwd = cwd
         self.start_cmd = start
-        self.restart_cmd = restart or ["true"]
+        self.restart_cmd = restart or False
         self.stop_cmd = stop or ["kill", "{pid}"]
         self.context = context or {}
+        self.daemonizes = daemonizes
+        self.templates = templates or []
+
+    def get_default_context(self):
+        context = {
+            'project_dir': os.path.abspath(os.path.dirname(__file__)),
+            'pid': self.get_pid(),
+        }
+        context.update(self.__dict__)
+        context.update(self.context)
+        return context
 
     def get_pid(self):
         try:
-            return int(file(self.pidfile).read())
-        except (IOError, OSError, ValueError):
+            results = subprocess.check_output(["/usr/sbin/lsof", "-i", ":%i"%self.port]).splitlines()[1:]
+        except subprocess.CalledProcessError:
             return None
-
-    def check_pid(self):
-        try:
-            os.kill(self.get_pid(), 0)
-        except OSError:
-            return False
-        else:
-            return True
+        procs = [int(re.findall("\w+", r)[1]) for r in results if "(LISTEN)" in r]
+        parent = sorted(procs)[0]
+        return parent
 
     def is_running(self):
-        return self.get_pid() and self.check_pid()
+        return bool(self.get_pid())
 
     def run(self, cmd):
+        for template in self.templates:
+            Template(template).render(self)
+
         subproc_cmd = []
         for arg in cmd:
-            if isinstance(arg, Template):
-                arg = arg.render(self)
-            else:
-                arg = arg.format(pid=self.get_pid())
+            arg = arg.format(**self.get_default_context())
             subproc_cmd.append(arg)
 
         print " ".join(subproc_cmd)
-        return subprocess.Popen(subproc_cmd)
+        if self.daemonizes:
+            runner = subprocess.check_call
+        else:
+            runner = subprocess.Popen
+        return runner(subproc_cmd, cwd=self.cwd)
 
     def start(self):
         print "Starting %s:" % self.name,
-        self.run(self.start_cmd)
+        print self.run(self.start_cmd)
 
     def restart(self):
-        print "Restarting %s:" % self.name,
-        self.run(self.restart_cmd)
+        if self.restart_cmd:
+            print "Restarting %s:" % self.name,
+            print self.run(self.restart_cmd)
+        else:
+            print "Ignoring %s, not configured to restart" % self.name
 
     def stop(self):
         print "Stopping %s:" % self.name,
-        self.run(self.stop_cmd)
+        print self.run(self.stop_cmd)
 
 class Template(object):
     def __init__(self, filename):
@@ -60,12 +76,9 @@ class Template(object):
         self.filename = filename
 
     def render(self, service):
-        project_dir = os.path.abspath(os.path.dirname(__file__))
-        context = service.__dict__.copy()
-        context['project_dir'] = project_dir
-        context.update(service.context)
+        context = service.get_default_context()
 
-        full_path = os.path.join(project_dir, self.filename)
+        full_path = os.path.join(context['project_dir'], self.filename)
         templated_path = os.path.splitext(full_path)[0]
 
         contents = open(full_path).read().decode("utf8")
@@ -73,33 +86,11 @@ class Template(object):
         open(templated_path, "w").write(contents.encode("utf8"))
         return templated_path
 
-services = {
-    "nginx":
-        {
-            "pidfile": "./run/nginx.pid",
-            "port": 54030,
-            "start": ["nginx", "-c", Template("nginx.conf.template")],
-            "restart": ["kill", "-s", "SIGHUP", "{pid}"],
-        },
-    "gunicorn":
-        {
-            "pidfile": "./run/gunicorn.pid",
-            "port": 31511,
-            "start": ["gunicorn", "-D", "-c", "settings_gunicorn.py", "goals.wsgi:application"],
-            "restart": ["kill", "-s", "SIGHUP", "{pid}"],
-        },
-    "redis":
-        {
-            "pidfile": "./run/redis.pid",
-            "port": 15126,
-            "start": ["redis-server", "redis.conf"],
-        },
-}
-
 def deploy(services, stop=False):
     for service in services:
         if stop:
-            service.stop()
+            if service.is_running():
+                service.stop()
         elif service.is_running():
             service.restart()
         else:
@@ -107,9 +98,7 @@ def deploy(services, stop=False):
 
 if __name__ == "__main__":
     import sys
-
     service_objs = []
-    for name, conf in services.items():
+    for name, conf in SERVICES.items():
         service_objs.append(Service(name, **conf))
-
     deploy(service_objs, stop="stop" in sys.argv)

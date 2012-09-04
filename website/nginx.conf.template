@@ -1,6 +1,6 @@
 worker_processes 1;
 
-pid {pidfile};
+pid {project_dir}/run/nginx.pid;
 error_log {project_dir}/run/nginx.error.log;
 
 events {{

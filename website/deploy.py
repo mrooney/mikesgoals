@@ -31,7 +31,7 @@ class Service(object):
             results = subprocess.check_output(["/usr/sbin/lsof", "-i", ":%i"%self.port]).splitlines()[1:]
         except subprocess.CalledProcessError:
             return None
-        procs = [int(re.findall("\w+", r)[1]) for r in results if "(LISTEN)" in r]
+        procs = [int(re.findall("[\w-]+", r)[1]) for r in results if "(LISTEN)" in r]
         parent = sorted(procs)[0]
         return parent
 

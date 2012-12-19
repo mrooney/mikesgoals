@@ -2,9 +2,13 @@
 import os
 import sys
 
-DEBUG = True #sys.platform == 'darwin'
-PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
-TEMPLATE_DEBUG = DEBUG
+DEBUG = sys.platform == 'darwin'
+TESTING = 'test' in sys.argv
+TEMPLATE_DEBUG = True
+
+PROJECT_DIR = os.path.dirname(__file__)
+WEBSITE_DIR = os.path.dirname(PROJECT_DIR)
+PUBLIC_DIR = os.path.join(WEBSITE_DIR, 'public')
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -88,11 +92,8 @@ SECRET_KEY = '=4!qasvek(=4&amp;40u(4s+8*#xa44i)hbb2tlrstk$c=_8py&amp;2%f'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-#    'django.template.loaders.filesystem.Loader',
-#    'django.template.loaders.app_directories.Loader',
-#    'django.template.loaders.eggs.Loader',
-    'django_jinja.loaders.AppLoader',
-    'django_jinja.loaders.FileSystemLoader',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -127,11 +128,20 @@ INSTALLED_APPS = (
      'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'goals',
-    'django_jinja',
     'south',
     'gunicorn',
+    'compressor',
+    'django_nose',
+    'goals',
 )
+if not (DEBUG or TESTING):
+    INSTALLED_APPS += (
+        'raven.contrib.django',
+    )
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+SENTRY_DSN = open(os.path.join(WEBSITE_DIR, 'sentry.dsn')).read()
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

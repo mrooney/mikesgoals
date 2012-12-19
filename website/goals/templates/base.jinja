@@ -10,20 +10,17 @@
     <div id="container">
         {% if request.user.is_authenticated() %}
             Welcome back, {{ request.user }}!
-            <a href="/logout">Logout</a>
+            <a href="{% url logout %}">Logout</a>
             <a href="#" class="newGoal">New Goal</a>
-            {# <a href="/totals">Totals</a> #}
+            {# <a href="{% url totals %}">Totals</a> #}
         {% else %}
-            <a href="/login">Login</a>
-            <a href="/signup">Signup</a>
+            <a href="{% url login %}">Login</a>
+            <a href="{% url signup %}">Signup</a>
         {% endif %}
-        
+
         <br/><br/>
 
         {% block content %}{% endblock %}
     </div>
-
-   
-
 </body>
 </html>

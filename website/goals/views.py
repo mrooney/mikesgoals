@@ -1,7 +1,8 @@
-from django.contrib.auth.decorators import user_passes_test
-from django.contrib import auth
+from coffin.shortcuts import render_to_response
+from django.contrib.auth import authenticate, logout as logout_user, login as login_user
+from django.core.validators import email_re
 from django.http import HttpResponse
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 
@@ -41,37 +42,58 @@ def totals(request):
 def github(request):
     from django.conf import settings
     import subprocess
-    pid = open(settings.PROJECT_PATH+"/../run/gunicorn.pid").read().strip()
-    subprocess.check_call(["git", "pull"], cwd=settings.PROJECT_PATH)
-    subprocess.check_call(["kill", "-s", "SIGHUP", pid], cwd=settings.PROJECT_PATH)
+    pid = open(settings.WEBSITE_DIR+"/run/gunicorn.pid").read().strip()
+    subprocess.check_call(["git", "pull"], cwd=settings.WEBSITE_DIR)
+    subprocess.check_call(["kill", "-s", "SIGHUP", pid])
     return HttpResponse()
 
+def login(request):
+    def failure(error_msg):
+        return r2r("login.jinja", request, locals())
+
+    if request.method == "GET":
+        return r2r("login.jinja", request, locals())
+    else:
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            if user.is_active:
+                login_user(request, user)
+                # Redirect to a success page.
+                return redirect("home")
+            else:
+                # Return a 'disabled account' error message
+                return failure("This account has been disabled.")
+        else:
+            # Return an 'invalid login' error message.
+            return failure("Invalid email address or password.")
+
 def logout(request):
-    auth.logout(request)
-    return redirect("/")
+    logout_user(request)
+    return redirect("home")
 
 def signup(request):
     if request.method == "GET":
-        return r2r("signup.jinja", request)
+        return r2r("signup.jinja", request, locals())
+    else:
+        email = request.POST['email']
+        password = request.POST['password']
+        if not email_re.match(email):
+            error_msg = "Please enter a valid email address."
+            return r2r("signup.jinja", request, locals())
+        if len(password) < 6:
+            error_msg = "Please enter a password of at least 6 characters."
+            return r2r("signup.jinja", request, locals())
+        if User.objects.filter(email=email).count():
+            error_msg = "An account with this email address already exists."
+            return r2r("signup.jinja", request, locals())
 
-    # Validation.
-    email = request.POST.get("email")
-    password = request.POST.get("password")
-    error = None
-
-    if not ('@' in email or '.' in email):
-        error = "Please enter a valid email address."
-    elif len(password) < 6:
-        error = "Passwords must be at least 6 characters."
-
-    if error:
-        return r2r("signup.jinja", request, {'error': error})
-
-    # They passed, create the user, log in, and head home.
-    user = User.objects.create_user(email, email, password)
-    user = auth.authenticate(username=email, password=password)
-    auth.login(request, user)
-    return redirect("/")
+        user = User.objects.create_user(email, password=password)
+        user.save()
+        user = authenticate(username=email, password=password)
+        login_user(request, user)
+        return redirect("home")
 
 @json_response
 def api_goal_delete(request):

@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from coffin.conf.urls.defaults import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -17,14 +17,9 @@ urlpatterns = patterns('',
     url(r'^totals/$', views.totals, name="totals"),
     url(r'^github/$', views.github, name="github"),
 
-
-    # Auth
-    url(r'^login$', 'django.contrib.auth.views.login', {'template_name': 'admin/login.html'}),
-    (r'^accounts/$', 'django.views.generic.simple.redirect_to', {'url': '/'}),
-    (r'^accounts/profile/$', 'django.views.generic.simple.redirect_to', {'url': '/'}),
-
-    url(r'^logout$', views.logout),
-    url(r'^signup$', views.signup),
+    url(r'^login/', views.login, name="login"),
+    url(r'^logout/', views.logout, name="logout"),
+    url(r'^signup/', views.signup, name="signup"),
 
     # API
     url(r'^api/check$', views.api_check),

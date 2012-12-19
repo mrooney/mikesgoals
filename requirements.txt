@@ -1,6 +1,6 @@
 South
 django-jinja
-django==1.4
+django==1.4.3
 gevent
 gunicorn
 python-cjson

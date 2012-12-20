@@ -19,7 +19,7 @@ goals.api = function(action, element) {
 
 goals.increment = function() {
     var element = $(this);
-    var img = $('<div class="checkbox"></div>');
+    var img = $('<div class="check"></div>');
     img.appendTo(element);
     goals.api('increment', element);
 }
@@ -78,7 +78,7 @@ goals.delete = function(event) {
 
 $(function() {
     $('td.trackBox').click(goals.increment);
-    $('td.trackBox').on('click', '.checkbox', goals.decrement);
+    $('td.trackBox').on('click', '.check', goals.decrement);
     $('td.goalTitle span.name').click(goals.edit);
     $('td.goalTitle span.delete').click(goals.delete);
     $('a.newGoal').click(goals.new);

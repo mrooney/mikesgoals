@@ -1,14 +1,19 @@
 {% extends "base.jinja" %}
 {% block content %}
 <table id="trackerTable">
+{% set current_freq = 1 %}
 {% for goal in goals %}
-    <tr>
+    {% if goal.frequency != current_freq %}
+        {% set current_freq = goal.frequency %}
+        <tr><td></td><td class="frequency-header" colspan="7">{{ goal.get_frequency_display() }}</td></tr>
+    {% endif %}
+    <tr class="{{ loop.cycle("even", "odd") }}">
         <td class="goalTitle" data-goal-id="{{ goal.id }}" data-goal-name="{{ goal.name }}">
             <span class="name">{{ goal.name }}</span>
             <span class="delete"><img src="/static/img/minus.gif"></span>
         </td>
         {% for date in goal.get_trailing_dates() %}
-            <td class="trackBox" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
+            <td class="trackBox {{"current" if loop.last }}" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
             {{ date }}
             {% for i in range(goal.get_date_count(date)) -%}
                 <div class="check"></div>
@@ -30,7 +35,7 @@
             <option value='4'>Yearly</option>
         </select>
         </div>
-        <div id='buttons'> 
+        <div id='buttons'>
             <input type='submit' value='Create'>
             <input type='button' value='Cancel'>
          </div>

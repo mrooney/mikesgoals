@@ -43,11 +43,17 @@ div.error {
     margin: auto;
 }
 
+#trackerTable td.frequency-header {
+    font-size: 0.8em;
+    background: #bdf;
+    text-align: center;
+}
+
 #trackerTable td {
     border: 2px solid #bdf;
 }
 
-#trackerTable td:last-child {
+#trackerTable td.current {
     border: 2px solid wheat;
 }
 
@@ -55,7 +61,7 @@ div.error {
     background: white;
 }
 
-#trackerTable tr:nth-child(even) td {
+#trackerTable tr.odd td {
     background: #F5F5DC;
 }
 

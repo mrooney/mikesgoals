@@ -13,7 +13,7 @@
             <span class="delete"><img src="/static/img/minus.gif"></span>
         </td>
         {% for date in goal.get_trailing_dates() %}
-            <td class="trackBox {{"current" if loop.last }}" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
+            <td class="trackBox {{"current" if loop.last else "subtle" }}" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
             {{ date }}
             {% for i in range(goal.get_date_count(date)) -%}
                 <div class="check"></div>

@@ -54,7 +54,10 @@ div.error {
 }
 
 #trackerTable td.current {
-    border: 2px solid wheat;
+    font-weight: bold;
+}
+
+#trackerTable td.subtle {
 }
 
 #trackerTable tr td {

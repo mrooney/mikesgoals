@@ -15,4 +15,4 @@ psutil
 python-cjson
 python-dateutil
 raven
-redis
+redis==2.7.2

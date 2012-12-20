@@ -68,6 +68,7 @@ div.error {
     height: 40px;
     font-size: 0.8em;
     text-align: center;
+    vertical-align: top;
     cursor: pointer;
 }
 

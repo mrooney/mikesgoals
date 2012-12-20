@@ -11,7 +11,7 @@ goals.reload = function() {
 goals.api = function(action, element) {
     var id = element.data('goal-id');
     var date = element.data('goal-date');
-    $.get('/api/check', {action: action, id: id, date: date})
+    $.get('/api/check', {action: action, id: id, date: date, breaker: Math.random()})
         .success(function() {
         })
         .error(goals.on_error);

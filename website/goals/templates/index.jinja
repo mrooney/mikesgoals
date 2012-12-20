@@ -4,8 +4,8 @@
 {% for goal in goals %}
     <tr>
         <td class="goalTitle" data-goal-id="{{ goal.id }}" data-goal-name="{{ goal.name }}">
-            <span class="delete"><img src="/static/img/minus.gif"></span>
             <span class="name">{{ goal.name }}</span>
+            <span class="delete"><img src="/static/img/minus.gif"></span>
         </td>
         {% for date in goal.get_trailing_dates() %}
             <td class="trackBox" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">

@@ -46,11 +46,8 @@ goals.edit = function(event) {
 }
 
 goals.new = function(event) {
-    //var name = prompt("Goal name");
-    //if (!name) { return; }
-    //var frequency = prompt("Frequency", 1);
-    //if (!frequency) { return; }
     $('div#new_goal').slideDown();
+    $('div#new_goal input[name=name]').focus();
     $("input[type='button']").click(function(){$('div#new_goal').slideUp();})
     $('form').submit(function(){
         var n = $("input[name='name']")

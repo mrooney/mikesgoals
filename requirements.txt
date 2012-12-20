@@ -3,7 +3,6 @@ South
 bpython
 coffin
 cssselect
-django-jinja
 django-nose
 django-smtp-ssl
 django==1.4.3

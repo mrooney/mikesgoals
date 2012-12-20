@@ -45,7 +45,9 @@ class Goal(models.Model):
         return count
 
     def incr(self, date, incr):
-        return self.redis.incr(self.get_date_key(date), incr)
+        result = self.redis.incr(self.get_date_key(date), incr)
+        print result
+        return result
 
     def get_trailing_dates(self, for_date=None):
         if for_date is None:

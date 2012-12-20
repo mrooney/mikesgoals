@@ -5,12 +5,33 @@
     display: inline-block;
 }
 
+#container .right-nav {
+    float: right;
+}
+
+.text-center {
+    text-align: center;
+}
+.logged-out-actions h2 {
+    display: inline-block;
+}
+
+.inner-header {
+}
+
+body.login .logged-out-actions, body.signup .logged-out-actions {
+    display: none;
+}
+
 #container {
     width: 800px;
-    margin: 20px auto 0px auto;
-    background: #bdf;
+    margin: 40px auto 0px auto;
     border-radius: 6px;
     padding: 10px;
+}
+
+#container .home {
+    margin-top: -2em;
 }
 
 div.error {

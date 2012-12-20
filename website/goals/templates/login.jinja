@@ -1,6 +1,7 @@
 {% extends "base.jinja" %}
+{% block inner_header %}Login{% endblock %}
+{% block body_class %}login{% endblock %}
 {% block content %}
-    <h1>Login</h1>
     <p class="text-error">{{ error_msg }}</p>
     <form class="form-inline" action="{% url login %}" method="post">
         {% csrf_token %}

@@ -4,7 +4,7 @@
 {% for goal in goals %}
     <tr>
         <td class="goalTitle" data-goal-id="{{ goal.id }}" data-goal-name="{{ goal.name }}">
-            <span class="delete">X</span>
+            <span class="delete"><img src="/static/img/minus.gif"></span>
             <span class="name">{{ goal.name }}</span>
         </td>
         {% for date in goal.get_trailing_dates() %}
@@ -17,7 +17,7 @@
         {% endfor %}
 {% endfor %}
 </table>
- <div id='new_goal'>
+<div id='new_goal'>
         <form  action='#'>
         <div>Goal<br/> 
             <input type='text' name='name'>

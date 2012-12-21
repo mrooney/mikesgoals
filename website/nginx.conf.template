@@ -20,6 +20,10 @@ http {{
     server {{
         listen   *:{port};
 
+        location /static/admin {{
+            alias {project_dir}/../env/lib/python2.7/site-packages/django/contrib/admin/static/admin/;
+        }}
+
         location /static/ {{
             #expires max;
             alias {project_dir}/goals/static/;

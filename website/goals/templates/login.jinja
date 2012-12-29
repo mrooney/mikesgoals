@@ -5,7 +5,7 @@
     <p class="text-error">{{ error_msg }}</p>
     <form class="form-inline" action="{% url login %}" method="post">
         {% csrf_token %}
-        <input type="text" class="input-large" name="email" placeholder="Email" autofocus="autofocus">
+        <input type="email" autocorrect="off" autocapitalize="off" class="input-large" name="email" placeholder="Email" autofocus="autofocus">
         <input type="password" class="input-medium" name="password" placeholder="Password">
         {#<label class="checkbox">
             <input type="checkbox"> Remember me

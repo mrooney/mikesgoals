@@ -25,3 +25,4 @@ From the directory of the repository:
 1. cd website
 1. ./manage.py syncdb --migrate
 1. ./deploy.py [starts/restarts application]
+1. open http://localhost:54030

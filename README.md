@@ -21,8 +21,6 @@ It lives at http://goals.rowk.com.
 From the directory of the repository:
 
 1. [optional] virtualenv --no-site-packages env && source env/bin/activate
-1. pip install -r requirements.txt
 1. cd website
-1. ./manage.py syncdb --migrate
-1. ./deploy.py [starts/restarts application]
+1. ./deploy.py [starts/restarts application, installs missing requirements, performs needed migrations]
 1. open http://localhost:54030

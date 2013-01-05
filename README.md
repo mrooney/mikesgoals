@@ -23,6 +23,5 @@ From the directory of the repository:
 1. [optional] virtualenv --no-site-packages env && source env/bin/activate
 1. pip install -r requirements.txt
 1. cd website
-1. ./manage.py syncdb
-1. ./manage.py migrate goals
-1. ./manage.py supervisor
+1. ./manage.py syncdb --migrate
+1. ./deploy.py [starts/restarts application]

@@ -42,9 +42,8 @@ def totals(request):
 def github(request):
     from django.conf import settings
     import subprocess
-    pid = open(settings.WEBSITE_DIR+"/run/gunicorn.pid").read().strip()
     subprocess.check_call(["git", "pull"], cwd=settings.WEBSITE_DIR)
-    subprocess.check_call(["kill", "-s", "SIGHUP", pid])
+    subprocess.check_call(["python", "deploy.py"], cwd=settings.WEBSITE_DIR)
     return HttpResponse()
 
 def login(request):

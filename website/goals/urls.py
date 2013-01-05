@@ -26,6 +26,4 @@ urlpatterns = patterns('',
     url(r'^api/goal_edit$', views.api_goal_edit),
     url(r'^api/goal_new$', views.api_goal_new),
     url(r'^api/goal_delete$', views.api_goal_delete),
-
-    (r'^auth/', include('djangofoursquare.urls')),
 )

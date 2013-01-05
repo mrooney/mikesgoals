@@ -134,7 +134,6 @@ INSTALLED_APPS = (
     'compressor',
     'django_nose',
     'goals',
-    'djangofoursquare',
 )
 if not (DEBUG or TESTING):
     INSTALLED_APPS += (
@@ -149,13 +148,6 @@ JINJA2_EXTENSIONS = [
 ]
 COMPRESS_ENABLED = True
 COMPRESS_PARSER = 'compressor.parser.LxmlParser'
-
-FOURSQUARE_CONSUMER_KEY = 'TAKQA40AJVNQTAAKPS100UXSERSXS3FNLTZGFHZLEN5G0BK3'
-FOURSQUARE_CONSUMER_SECRET = 'NSWLD0WWC2TUMMBWLVXU1CKDGKWTFAFEFSZQGPIJDQZGI254'
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'djangofoursquare.backends.FoursquareBackend',
-)
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -1,6 +1,5 @@
 BeautifulSoup<4.0
 South
-bpython
 coffin
 cssselect
 django-nose
@@ -9,6 +8,7 @@ django==1.4.3
 django_compressor
 gevent
 gunicorn
+Jinja2
 lxml
 psutil
 python-cjson

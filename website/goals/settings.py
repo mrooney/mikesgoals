@@ -134,11 +134,23 @@ INSTALLED_APPS = (
     'compressor',
     'django_nose',
     'goals',
+    'social_auth',
 )
 if not (DEBUG or TESTING):
     INSTALLED_APPS += (
         'raven.contrib.django',
     )
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.contrib.foursquare.FoursquareBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+FOURSQUARE_CONSUMER_KEY = 'TAKQA40AJVNQTAAKPS100UXSERSXS3FNLTZGFHZLEN5G0BK3'
+FOURSQUARE_CONSUMER_SECRET = 'NSWLD0WWC2TUMMBWLVXU1CKDGKWTFAFEFSZQGPIJDQZGI254'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_ERROR_URL = 'login'
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 SENTRY_DSN = open(os.path.join(WEBSITE_DIR, 'sentry.dsn')).read()

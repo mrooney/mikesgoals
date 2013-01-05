@@ -17,13 +17,15 @@ urlpatterns = patterns('',
     url(r'^totals/$', views.totals, name="totals"),
     url(r'^github/$', views.github, name="github"),
 
-    url(r'^login/', views.login, name="login"),
-    url(r'^logout/', views.logout, name="logout"),
-    url(r'^signup/', views.signup, name="signup"),
+    url(r'^login/$', views.login, name="login"),
+    url(r'^logout/$', views.logout, name="logout"),
+    url(r'^signup/$', views.signup, name="signup"),
 
     # API
     url(r'^api/check$', views.api_check),
     url(r'^api/goal_edit$', views.api_goal_edit),
     url(r'^api/goal_new$', views.api_goal_new),
     url(r'^api/goal_delete$', views.api_goal_delete),
+
+    url(r'', include('social_auth.urls')),
 )

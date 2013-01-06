@@ -1,3 +1,8 @@
+Date.prototype.getDOY = function() {
+    var onejan = new Date(this.getFullYear(),0,1);
+    return Math.ceil((this - onejan) / 86400000);
+}
+
 goals = {}
 
 goals.on_error = function() {
@@ -72,6 +77,11 @@ goals.delete = function(event) {
     }
 }
 
+goals.reload_if_new_day = function() {
+    if (new Date().getDOY() != goals.today) {
+        goals.reload();
+    }
+}
 
 $(function() {
     $('td.trackBox').click(goals.increment);
@@ -79,7 +89,9 @@ $(function() {
     $('td.goalTitle span.name').click(goals.edit);
     $('td.goalTitle span.delete').click(goals.delete);
     $('a.newGoal').click(goals.new);
+    $(window).on('focus', goals.reload_if_new_day);
 
+    goals.today = new Date().getDOY();
     // Figure out how many milliseconds until midnight, when we'll reload.
     var tomorrow = new Date();
     tomorrow.setTime(tomorrow.getTime() + 60*60*24*1000);
@@ -89,7 +101,7 @@ $(function() {
     var millisecondsToTomorrow = tomorrow - (new Date());
     // Set a timeout to reload at midnight, and at that point reload every 24h.
     setTimeout(function() {
-        window.location.reload();
-        setInterval(window.location.reload, 60*60*24*1000);
+        goals.reload_if_new_day();
+        setInterval(goals.reload_if_new_day, 60*60*24*1000);
     }, millisecondsToTomorrow);
 });

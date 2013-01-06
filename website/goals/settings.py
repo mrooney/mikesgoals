@@ -145,8 +145,10 @@ AUTHENTICATION_BACKENDS = (
     'social_auth.backends.contrib.foursquare.FoursquareBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-FOURSQUARE_CONSUMER_KEY = 'TAKQA40AJVNQTAAKPS100UXSERSXS3FNLTZGFHZLEN5G0BK3'
-FOURSQUARE_CONSUMER_SECRET = 'NSWLD0WWC2TUMMBWLVXU1CKDGKWTFAFEFSZQGPIJDQZGI254'
+
+FOURSQUARE_CONSUMER_KEY = 'foo'
+# TODO: read these from an unversioned file like open(os.path.join(WEBSITE_DIR, "foursquare.secret")).read()
+FOURSQUARE_CONSUMER_SECRET = 'bar'
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'

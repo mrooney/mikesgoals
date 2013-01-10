@@ -1,3 +1,43 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+h3.muted a {
+    color: #999;
+}
+
+/* Custom container */
+.container-narrow {
+    margin: 0 auto;
+    max-width: 800px;
+}
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+    margin: 60px 0;
+    text-align: center;
+}
+.jumbotron h1 {
+    font-size: 72px;
+    line-height: 1;
+}
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 60px 0;
+}
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
 .check {
     width: 16px;
     height: 16px;
@@ -21,17 +61,6 @@
 
 body.login .logged-out-actions, body.signup .logged-out-actions {
     display: none;
-}
-
-#container {
-    width: 800px;
-    margin: 40px auto 0px auto;
-    border-radius: 6px;
-    padding: 10px;
-}
-
-#container .home {
-    margin-top: -2em;
 }
 
 div.error {

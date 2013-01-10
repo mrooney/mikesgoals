@@ -1,44 +1,82 @@
 {% extends "base.jinja" %}
 {% block content %}
-<table id="trackerTable">
-{% set current_freq = 1 %}
-{% for goal in goals %}
-    {% if goal.frequency != current_freq %}
-        {% set current_freq = goal.frequency %}
-        <tr><td></td><td class="frequency-header" colspan="7">{{ goal.get_frequency_display() }}</td></tr>
-    {% endif %}
-    <tr class="{{ loop.cycle("even", "odd") }}">
-        <td class="goalTitle" data-goal-id="{{ goal.id }}" data-goal-name="{{ goal.name }}">
-            <span class="name">{{ goal.name }}</span>
-            <span class="delete"><img src="/static/img/delete.png"></span>
-        </td>
-        {% for date in goal.get_trailing_dates() %}
-            <td class="trackBox {{"current" if loop.last else "subtle" }}" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
-            {{ date }}<br/>
-            {% for i in range(goal.get_date_count(date)) -%}
-                <div class="check"></div>
-            {%- endfor %}
-            </td>
+    {% if request.user.is_authenticated() %}
+        Welcome back, {{ request.user }}!
+        <div class="right-nav">
+            {% if goals %}<a href="#" class="newGoal">New Goal</a>{% endif%}
+        </div>
+        {% if not goals %}
+            <div class="text-center"><h1><a href="#" class="newGoal">New Goal</a></h1></div>
+        {% endif %}
+    <table id="trackerTable">
+        {% set current_freq = 1 %}
+        {% for goal in goals %}
+            {% if goal.frequency != current_freq %}
+                {% set current_freq = goal.frequency %}
+                <tr><td></td><td class="frequency-header" colspan="7">{{ goal.get_frequency_display() }}</td></tr>
+            {% endif %}
+            <tr class="{{ loop.cycle("even", "odd") }}">
+                <td class="goalTitle" data-goal-id="{{ goal.id }}" data-goal-name="{{ goal.name }}">
+                    <span class="name">{{ goal.name }}</span>
+                    <span class="delete"><img src="/static/img/delete.png"></span>
+                </td>
+                {% for date in goal.get_trailing_dates() %}
+                    <td class="trackBox {{"current" if loop.last else "subtle" }}" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
+                    {{ date }}<br/>
+                    {% for i in range(goal.get_date_count(date)) -%}
+                        <div class="check"></div>
+                    {%- endfor %}
+                    </td>
+                {% endfor %}
         {% endfor %}
-{% endfor %}
-</table>
-<div id='new_goal'>
-        <form  action='#'>
-        <div>Goal<br/> 
-            <input type='text' name='name'>
-        </div>
-        <div>Frequency<br/>
-        <select name='frequency'>
-            <option value='1'>Daily</option>
-            <option value='2'>Weekly</option>
-            <option value='3'>Monthly</option>
-            <option value='4'>Yearly</option>
-        </select>
-        </div>
-        <div id='buttons'>
-            <input type='submit' value='Create'>
-            <input type='button' value='Cancel'>
-         </div>
+    </table>
+    <div id='new_goal'>
+        <form action='#'>
+            <div>
+                Goal<br/>
+                <input type='text' name='name'>
+            </div>
+            <div>
+                Frequency<br/>
+                <select name='frequency'>
+                    <option value='1'>Daily</option>
+                    <option value='2'>Weekly</option>
+                    <option value='3'>Monthly</option>
+                    <option value='4'>Yearly</option>
+                </select>
+            </div>
+            <div id='buttons'>
+                <input type='submit' value='Create'>
+                <input type='button' value='Cancel'>
+            </div>
         </form>
-</div>
+    </div>
+    {% else %}
+        <div class="jumbotron">
+            <h1>Super awesome marketing speak!</h1>
+            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <a class="btn btn-large btn-success" href="{% url signup %}">Sign up today</a>
+            {% if 'foursquare' in request.GET %}
+                <a href="{% url socialauth_begin 'foursquare' %}">login with Foursquare</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
+{% block after_container %}
+    {% if not request.user.is_authenticated() %}
+        <div class="row">
+            <div class="span4">
+                <h2>foo</h2>
+                <p>baz</p>
+            </div>
+            <div class="span4">
+                <h2>foo</h2>
+                <p>baz</p>
+            </div>
+            <div class="span4">
+                <h2>foo</h2>
+                <p>baz</p>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}

@@ -7,7 +7,7 @@
         <title>Mike's Goals</title>
 
         {% compress css %}
-            <link rel="stylesheet" type="text/css" href="/static/bootstrap-2.1.1/css/bootstrap.min.css" />
+            <link rel="stylesheet" type="text/css" href="/static/bootstrap-2.2.2/css/bootstrap.min.css" />
             <link rel="stylesheet" type="text/css" href="/static/css/goals.css"/>
         {% endcompress %}
 
@@ -18,35 +18,32 @@
     </head>
     <body class="{% block body_class %}{% endblock %}">
         <a href="https://github.com/mrooney/mikesgoals" target="_blank"><img style="opacity: 0.15; position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
-        <div id="container" class="well">
-            <a href="{% url home %}"><h4 class="home">Mike's Goals</h4></a>
-            {% if request.user.is_authenticated() %}
-                Welcome back, {{ request.user }}!
-                <div class="right-nav">
-                    {% if goals %}<a href="#" class="newGoal">New Goal</a> |{% endif%}
-                    <a href="{% url logout %}">Logout</a>
-                    {# <a href="{% url totals %}">Totals</a> #}
-                </div>
-                {% if not goals %}
-                    <div class="text-center"><h1><a href="#" class="newGoal">New Goal</a></h1></div>
-                {% endif %}
-            {% else %}
-                <div class="inner-header">
-                    <h1>{% block inner_header %}Welcome{% endblock %}</h1>
-                </div>
-                <div class="logged-out-actions text-center">
-                    <a href="{% url login %}"><button class="btn-large btn-primary">Login</button></a>
-                    <a href="{% url signup %}"><button class="btn-large btn-primary">Sign Up</button></a>
-                    {% if 'foursquare' in request.GET %}
-                        <a href="{% url socialauth_begin 'foursquare' %}">login with Foursquare</a>
+        <div class="container-narrow">
+            <div class="masthead">
+                <ul class="nav nav-pills pull-right">
+                    <li><a href="{% url home %}">Home</a></li>
+                    {% if request.user.is_authenticated() %}
+                        <li><a href="{% url logout %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url login %}">Login</a></li>
                     {% endif %}
-                </div>
-            {% endif %}
+                </ul>
+                {#<form class="navbar-form pull-right">
+                    <input class="span2" type="text" placeholder="Email">
+                    <input class="span2" type="password" placeholder="Password">
+                    <button type="submit" class="btn">Sign in</button>
+                </form>#}
+                <h3 class="muted">
+                    <a href="{% url home %}">Mike's Goals</a>
+                </h3>
+            </div>
 
-            <br/><br/>
-
-            {% block content %}{% endblock %}
+            <div class="well">
+                {% block content %}{% endblock %}
+            </div>
         </div>
+
+        {% block after_container %}{% endblock %}
 
         {% compress js %}
             <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
@@ -57,7 +54,6 @@
           _gaq.push(['_setAccount', 'UA-37419893-1']);
           _gaq.push(['_setDomainName', 'rowk.com']);
           _gaq.push(['_trackPageview']);
-
           (function() {
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';

@@ -7,6 +7,7 @@ goals = {}
 
 goals.on_error = function() {
     alert('Alas, an error has occurred.');
+    _gaq.push(['_trackEvent', 'api', 'error']);
 }
 
 goals.reload = function() {
@@ -18,6 +19,7 @@ goals.api = function(action, element) {
     var date = element.data('goal-date');
     $.get('/api/check', {action: action, id: id, date: date, breaker: Math.random()})
         .success(function() {
+            _gaq.push(['_trackEvent', 'api', action]);
         })
         .error(goals.on_error);
 }
@@ -57,11 +59,14 @@ goals.new = function(event) {
     $('form').submit(function(){
         var n = $("input[name='name']")
         if($.trim(n.val()).length == 0){ n.css({'border':'1px solid red'})}
-        else{
-          n.css({'border':'1px solid #DDDDDD'});
-         $.get('/api/goal_new',$('form').serialize(), function(){$('div#new_goal').slideUp()})
-         .error(goals.on_error)
-         .success(goals.reload);
+        else {
+            n.css({'border':'1px solid #DDDDDD'});
+            $.get('/api/goal_new',$('form').serialize(), function(){$('div#new_goal').slideUp()})
+                .error(goals.on_error)
+                .success(function() {
+                    _gaq.push(['_trackEvent', 'api', 'new']);
+                    goals.reload();
+                });
         }
  return false
  })
@@ -84,24 +89,11 @@ goals.reload_if_new_day = function() {
 }
 
 $(function() {
+    goals.today = new Date().getDOY();
     $('td.trackBox').click(goals.increment);
     $('td.trackBox').on('click', '.check', goals.decrement);
     $('td.goalTitle span.name').click(goals.edit);
     $('td.goalTitle span.delete').click(goals.delete);
     $('a.newGoal').click(goals.new);
     $(window).on('focus', goals.reload_if_new_day);
-
-    goals.today = new Date().getDOY();
-    // Figure out how many milliseconds until midnight, when we'll reload.
-    var tomorrow = new Date();
-    tomorrow.setTime(tomorrow.getTime() + 60*60*24*1000);
-    tomorrow.setHours(0);
-    tomorrow.setMinutes(0);
-    tomorrow.setSeconds(0);
-    var millisecondsToTomorrow = tomorrow - (new Date());
-    // Set a timeout to reload at midnight, and at that point reload every 24h.
-    setTimeout(function() {
-        goals.reload_if_new_day();
-        setInterval(goals.reload_if_new_day, 60*60*24*1000);
-    }, millisecondsToTomorrow);
 });

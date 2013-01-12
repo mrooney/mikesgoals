@@ -89,6 +89,10 @@ div.error {
 #trackerTable td.subtle {
 }
 
+#trackerTable td.subtle .check {
+    opacity: 0.7;
+}
+
 #trackerTable tr td {
     background: white;
 }

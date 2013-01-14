@@ -18,7 +18,7 @@
             <tr class="{{ loop.cycle("even", "odd") }}">
                 <td class="goalTitle" data-goal-id="{{ goal.id }}" data-goal-name="{{ goal.name }}">
                     <span class="name">{{ goal.name }}</span>
-                    <span class="delete"><img src="/static/img/delete.png"></span>
+                    <span class="delete"><img src="/static/img/delete.png" width="16" height="16"></span>
                 </td>
                 {% for date in goal.get_trailing_dates() %}
                     <td class="trackBox {{"current" if loop.last else "subtle" }}" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">

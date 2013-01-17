@@ -155,7 +155,8 @@ LOGIN_REDIRECT_URL = 'home'
 LOGIN_ERROR_URL = 'login'
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-SENTRY_DSN = open(os.path.join(WEBSITE_DIR, 'sentry.dsn')).read()
+if not DEBUG:
+    SENTRY_DSN = open(os.path.join(WEBSITE_DIR, 'sentry.dsn')).read()
 
 JINJA2_EXTENSIONS = [
     'compressor.contrib.jinja2ext.CompressorExtension',

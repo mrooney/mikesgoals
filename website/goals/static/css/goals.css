@@ -45,7 +45,7 @@ h3.muted a {
     display: inline-block;
 }
 
-#container .right-nav {
+.well .right-nav {
     float: right;
 }
 
@@ -69,7 +69,7 @@ div.error {
 
 #trackerTable {
     width: 728px;
-    margin: auto;
+    margin: 10px auto;
 }
 
 #trackerTable td.frequency-header {

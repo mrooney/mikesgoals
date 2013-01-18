@@ -1,10 +1,10 @@
 {% extends "base.jinja" %}
 {% block content %}
     {% if request.user.is_authenticated() %}
-        <div>
-            <span class="welcome">Welcome back, {{ request.user }}!</span>
-            <div class="right-nav">
-                {% if goals %}<a href="#" class="newGoal">New Goal</a>{% endif%}
+        <div class="clearfix">
+            <div class="pull-left">Welcome back, {{ request.user }}!</div>
+            <div class="pull-right">
+                {% if goals %}<a href="#" class="newGoal">New Goal</a>{% endif %}
             </div>
         </div>
         {% if not goals %}

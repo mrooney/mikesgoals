@@ -55,9 +55,9 @@
     </div>
     {% else %}
         <div class="jumbotron">
-            <h1>Super awesome marketing speak!</h1>
-            <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <a class="btn btn-large btn-success" href="{% url signup %}">Sign up today</a>
+            <h2>Accomplish Your Goals!</h2>
+            <p class="lead">Mike's Goals makes it simple to define your goals and track your progress.</p>
+            <a class="btn btn-large btn-success" href="{% url signup %}">Sign up for free</a>
             {% if 'foursquare' in request.GET %}
                 <a href="{% url socialauth_begin 'foursquare' %}">login with Foursquare</a>
             {% endif %}
@@ -66,18 +66,20 @@
 {% endblock %}
 {% block after_container %}
     {% if not request.user.is_authenticated() %}
-        <div class="row">
-            <div class="span4">
-                <h2>foo</h2>
-                <p>baz</p>
-            </div>
-            <div class="span4">
-                <h2>foo</h2>
-                <p>baz</p>
-            </div>
-            <div class="span4">
-                <h2>foo</h2>
-                <p>baz</p>
+        <div class="container-narrow">
+            <div class="subheaders clearfix">
+                <div>
+                    <h2>Set Goals</h2>
+                    <p>Create goals that you want to accomplish on a daily, weekly, monthly, or even yearly basis.</p>
+                </div>
+                <div>
+                    <h2>Achieve Them</h2>
+                    <p>Click the date and mark off your goal, once, twice, or more!</p>
+                </div>
+                <div>
+                    <h2>Be Happy</h2>
+                    <p>Great news! Thanks to documenting your goals and being able to notice when you've fallen behind, you can catch up.</p>
+                </div>
             </div>
         </div>
     {% endif %}

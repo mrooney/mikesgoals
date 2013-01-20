@@ -10,6 +10,7 @@
             <link rel="stylesheet" type="text/css" href="/static/bootstrap-2.2.2/css/bootstrap.min.css" />
             <link rel="stylesheet" type="text/css" href="/static/css/goals.css"/>
         {% endcompress %}
+        {% compress css %}{% block extra_css %}{% endblock %}{% endcompress %}
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements. MUST BE BEFORE BODY -->
         <!--[if lt IE 9]>
@@ -28,11 +29,6 @@
                         <li><a href="{% url login %}">Login</a></li>
                     {% endif %}
                 </ul>
-                {#<form class="navbar-form pull-right">
-                    <input class="span2" type="text" placeholder="Email">
-                    <input class="span2" type="password" placeholder="Password">
-                    <button type="submit" class="btn">Sign in</button>
-                </form>#}
                 <h3 class="muted">
                     <a href="{% url home %}">Mike's Goals</a>
                 </h3>
@@ -49,6 +45,7 @@
             <script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
             <script type="text/javascript" src="/static/js/goals.js"></script>
         {% endcompress %}
+        {% block extra_js %}{% endblock %}
         <script type="text/javascript">
           var _gaq = _gaq || [];
           _gaq.push(['_setAccount', 'UA-37419893-1']);

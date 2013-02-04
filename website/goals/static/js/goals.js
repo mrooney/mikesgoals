@@ -90,10 +90,10 @@ goals.reload_if_new_day = function() {
 
 $(function() {
     goals.today = new Date().getDOY();
-    $('td.trackBox').click(goals.increment);
+    $('td.trackBox, td.trackBox .date-header').on('click', goals.increment);
     $('td.trackBox').on('click', '.check', goals.decrement);
-    $('td.goalTitle span.name').click(goals.edit);
-    $('td.goalTitle span.delete').click(goals.delete);
-    $('a.newGoal').click(goals.new);
+    $('td.goalTitle span.name').on('click', goals.edit);
+    $('td.goalTitle span.delete').on('click', goals.delete);
+    $('a.newGoal').on('click', goals.new);
     $(window).on('focus', goals.reload_if_new_day);
 });

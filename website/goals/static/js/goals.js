@@ -29,6 +29,7 @@ goals.increment = function() {
     var img = $('<div class="check"></div>');
     img.appendTo(element);
     goals.api('increment', element);
+    return false;
 }
 
 goals.decrement = function(event) {
@@ -37,6 +38,7 @@ goals.decrement = function(event) {
     var parent = element.parent();
     element.remove();
     goals.api('decrement', parent);
+    return false;
 }
 
 goals.edit = function(event) {
@@ -90,7 +92,7 @@ goals.reload_if_new_day = function() {
 
 $(function() {
     goals.today = new Date().getDOY();
-    $('td.trackBox').click(goals.increment);
+    $('td.trackBox').on('click touchstart', goals.increment);
     $('td.trackBox').on('click', '.check', goals.decrement);
     $('td.goalTitle span.name').click(goals.edit);
     $('td.goalTitle span.delete').click(goals.delete);

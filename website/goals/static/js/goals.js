@@ -92,8 +92,8 @@ goals.reload_if_new_day = function() {
 
 $(function() {
     goals.today = new Date().getDOY();
-    $('td.trackBox').on('click touchstart tap', goals.increment);
-    $('td.trackBox').on('click', '.check', goals.decrement);
+    $('td.trackBox').on('mousedown', goals.increment);
+    $('td.trackBox').on('mousedown', '.check', goals.decrement);
     $('td.goalTitle span.name').click(goals.edit);
     $('td.goalTitle span.delete').click(goals.delete);
     $('a.newGoal').click(goals.new);

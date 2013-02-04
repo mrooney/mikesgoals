@@ -25,11 +25,10 @@ goals.api = function(action, element) {
 }
 
 goals.increment = function() {
-    var container = $(this).parent('td');
+    var element = $(this);
     var img = $('<div class="check"></div>');
-    img.appendTo(container);
-    goals.api('increment', container);
-    return false;
+    img.appendTo(element);
+    goals.api('increment', element);
 }
 
 goals.decrement = function(event) {
@@ -91,10 +90,10 @@ goals.reload_if_new_day = function() {
 
 $(function() {
     goals.today = new Date().getDOY();
-    $('td.trackBox, td.trackBox .date-header').on('click touchstart', goals.increment);
+    $('td.trackBox').click(goals.increment);
     $('td.trackBox').on('click', '.check', goals.decrement);
-    $('td.goalTitle span.name').on('click', goals.edit);
-    $('td.goalTitle span.delete').on('click', goals.delete);
-    $('a.newGoal').on('click', goals.new);
+    $('td.goalTitle span.name').click(goals.edit);
+    $('td.goalTitle span.delete').click(goals.delete);
+    $('a.newGoal').click(goals.new);
     $(window).on('focus', goals.reload_if_new_day);
 });

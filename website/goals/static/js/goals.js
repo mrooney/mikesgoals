@@ -25,10 +25,11 @@ goals.api = function(action, element) {
 }
 
 goals.increment = function() {
-    var element = $(this);
+    var container = $(this).parent('td');
     var img = $('<div class="check"></div>');
-    img.appendTo(element);
-    goals.api('increment', element);
+    img.appendTo(container);
+    goals.api('increment', container);
+    return false;
 }
 
 goals.decrement = function(event) {

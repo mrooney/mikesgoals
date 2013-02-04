@@ -1,4 +1,9 @@
 {% extends "base.jinja" %}
+
+{% block extra_meta %}
+    <meta name="format-detection" content="telephone=no" />
+{% endblock %}
+
 {% block content %}
     {% if request.user.is_authenticated() %}
         <div class="clearfix">

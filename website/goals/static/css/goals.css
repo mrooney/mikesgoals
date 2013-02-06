@@ -53,6 +53,10 @@ h3.muted a {
 
 /* Goals */
 
+a.newGoal {
+    font-weight: bold;
+}
+
 .check {
     width: 16px;
     height: 16px;

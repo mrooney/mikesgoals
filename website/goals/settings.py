@@ -203,6 +203,6 @@ else:
     EMAIL_USE_TLS = True
     AWS_CREDENTIALS_PATH = os.path.join(WEBSITE_DIR, 'aws.credentials')
     if os.path.exists(AWS_CREDENTIALS_PATH):
-        EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = open().read().splitlines()
+        EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = open(AWS_CREDENTIALS_PATH).read().splitlines()
 
 

@@ -164,31 +164,44 @@ JINJA2_EXTENSIONS = [
 COMPRESS_ENABLED = True
 COMPRESS_PARSER = 'compressor.parser.LxmlParser'
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
+WEBSITE_NAME = "Mike's Goals"
+from settings_deploy import SERVICES
+if DEBUG:
+    WEBSITE_URL = "http://localhost:{}".format(SERVICES['nginx']['port'])
+else:
+    WEBSITE_URL = "http://goals.rowk.com"
+
+LOGIN_URL = "/login"
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+        'logfile': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': os.path.join(WEBSITE_DIR, 'run', 'gunicorn.log'),
+        },
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'handlers': ['logfile'],
+            'level': 'INFO',
             'propagate': True,
         },
     }
 }
+
+if DEBUG:
+    # Show emails in the console during developement.
+    DEFAULT_FROM_EMAIL = "mrooney@gmail.com"
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    DEFAULT_FROM_EMAIL = "mrooney@gmail.com"
+    EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+    EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
+    EMAIL_PORT = 465
+    EMAIL_HOST_USER = 'YOUR_SMTP_USERNAME'
+    EMAIL_HOST_PASSWORD = 'YOUR_SMTP_PASSWORD'
+    EMAIL_USE_TLS = True
+
+

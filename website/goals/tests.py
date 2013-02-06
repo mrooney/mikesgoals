@@ -28,6 +28,9 @@ class GoalsTests(ExtendedTestCase):
         user = self.signup_user()
         self.assertEqual(1, user.id)
 
+    def test_password_reset(self):
+        self.assertStatus(200, '/password_reset')
+
     def test_daily(self):
         g = models.Goal(name="foo", frequency=models.Goal.FREQ_DAILY)
 

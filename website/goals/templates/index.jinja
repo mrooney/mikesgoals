@@ -4,6 +4,20 @@
     <meta name="format-detection" content="telephone=no" />
 {% endblock %}
 
+{% macro render_date(date, frequency) -%}
+    {% if frequency == 1 %}
+        {{ date.strftime("%a") }}
+    {% elif frequency == 2 %}
+        {{ date.strftime("%m/%d") }}
+    {% elif frequency == 3 %}
+        {{ date.strftime("%b") }}
+    {% elif frequency == 4 %}
+        {{ date.strftime("%Y") }}
+    {% else %}
+        {{ date }}
+    {% endif %}
+{%- endmacro %}
+
 {% block content %}
     {% if request.user.is_authenticated() %}
         <div class="clearfix">
@@ -29,7 +43,7 @@
                 </td>
                 {% for date in goal.get_trailing_dates() %}
                     <td class="trackBox {{"current" if loop.last else "subtle" }}" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
-                    {{ date.strftime("%a") if goal.frequency == 1 else date }}<br/>
+                    {{ render_date(date, goal.frequency) }}<br/>
                     {% for i in range(goal.get_date_count(date)) -%}
                         <div class="check"></div>
                     {%- endfor %}

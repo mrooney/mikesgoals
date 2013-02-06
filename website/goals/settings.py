@@ -200,8 +200,7 @@ else:
     EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
     EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
     EMAIL_PORT = 465
-    EMAIL_HOST_USER = 'YOUR_SMTP_USERNAME'
-    EMAIL_HOST_PASSWORD = 'YOUR_SMTP_PASSWORD'
+    EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = open(os.path.join(WEBSITE_DIR, 'aws.credentials')).read().splitlines()
     EMAIL_USE_TLS = True
 
 

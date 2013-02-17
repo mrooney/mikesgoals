@@ -30,7 +30,7 @@ http {{
         }}
 
         location /favicon.ico {{
-            alias {project_dir}/goals/static/img/plus.gif;
+            alias {project_dir}/goals/static/img/favicon.ico;
         }}
 
         location / {{

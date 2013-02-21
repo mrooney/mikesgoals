@@ -7,7 +7,7 @@ cssselect
 django-nose
 django-smtp-ssl
 django-social-auth
-django==1.4.3
+django==1.4.4
 django_compressor
 gevent
 gunicorn

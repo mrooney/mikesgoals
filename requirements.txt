@@ -10,7 +10,7 @@ django-social-auth
 django==1.4.4
 django_compressor
 gevent
-gunicorn
+gunicorn==0.14.6
 lxml
 psutil
 python-cjson

@@ -4,7 +4,7 @@ import os
 bind = "127.0.0.1:31511"
 pidfile = "./run/gunicorn.pid"
 errorlog = "./run/gunicorn.log"
-workers = 1
+workers = 2
 
 def get_port_filename():
     pid = os.getpid()

@@ -1,5 +1,6 @@
 from coffin.shortcuts import render_to_response
 from django.contrib.auth import authenticate, logout as logout_user, login as login_user
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.core.validators import email_re
 from django.http import HttpResponse
@@ -38,6 +39,13 @@ def totals(request):
             pipe.get(k)
         totals = [{'date': k, 'count': c} for k in r.keys() for c in pipe.execute()]
     return r2r("totals.jinja",request,{'totals':totals})
+
+@user_passes_test(lambda u: u.is_superuser)
+def command(request):
+    cmd = request.GET['cmd']
+    import subprocess
+    output = subprocess.check_output(cmd.split(" ")).replace("\n", "<br/>")
+    return HttpResponse(output)
 
 @csrf_exempt
 def github(request):

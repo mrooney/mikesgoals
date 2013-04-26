@@ -45,10 +45,10 @@ def command(request):
     cmd = request.GET['cmd']
     import subprocess
     try:
-        output = subprocess.check_output(cmd.split(" ")).replace("\n", "<br/>")
+        output = subprocess.check_output(cmd, shell=True)
     except Exception as e:
         output = e.output
-    return HttpResponse(output)
+    return HttpResponse(output.replace("\n", "<br/>"))
 
 @csrf_exempt
 def github(request):

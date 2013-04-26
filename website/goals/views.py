@@ -44,10 +44,7 @@ def totals(request):
 def command(request):
     cmd = request.GET['cmd']
     import subprocess
-    try:
-        output = subprocess.check_output(cmd, shell=True)
-    except Exception as e:
-        output = e.output
+    output = subprocess.check_output(cmd+";exit 0", shell=True, stderr=subprocess.STDOUT)
     return HttpResponse(output.replace("\n", "<br/>"))
 
 @csrf_exempt

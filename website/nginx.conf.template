@@ -8,6 +8,12 @@ events {{
 }}
 
 http {{
+    client_body_temp_path {project_dir}/run/client_body;
+    proxy_temp_path {project_dir}/run/proxy_temp;
+    fastcgi_temp_path {project_dir}/run/fastcgi_temp;
+    uwsgi_temp_path {project_dir}/run/uwsgi_temp;
+    scgi_temp_path {project_dir}/run/scgi_temp;
+
     include nginx.mime.types;
     default_type application/octet-stream;
     access_log {project_dir}/run/nginx.access.log;

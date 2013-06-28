@@ -8,7 +8,7 @@ import psutil
 from settings_deploy import SERVICES
 
 class Service(object):
-    def __init__(self, name, port=None, pidfile=None, cwd=None, before=None, after=None, start=None, restart=None, stop=None, context=None, daemonizes=True, templates=None):
+    def __init__(self, name, port=None, pidfile=None, cwd=None, before=None, after=None, start=None, restart=None, stop=None, context=None, daemonizes=True, templates=None, **kwargs):
         self.name = name
         self.port = port
         self.pidfile = pidfile
@@ -21,6 +21,7 @@ class Service(object):
         self.context = context or {}
         self.daemonizes = daemonizes
         self.templates = templates or []
+        self.__dict__.update(kwargs)
 
     def get_default_context(self, withpid=True):
         context = {
@@ -97,18 +98,22 @@ class Service(object):
             # pid is not available in after_cmd, as it may be in flux / racey.
             self.run(self.after_cmd, withpid=False)
 
-    def start(self):
+    def start(self, quick=False):
         print "Starting %s:" % self.name,
-        self.before()
+        if not quick:
+            self.before()
         self.run(self.start_cmd)
-        self.after()
+        if not quick:
+            self.after()
 
-    def restart(self):
+    def restart(self, quick=False):
         if self.restart_cmd:
             print "Restarting %s:" % self.name,
-            self.before()
+            if not quick:
+                self.before()
             self.run(self.restart_cmd)
-            self.after()
+            if not quick:
+                self.after()
         else:
             print "Ignoring %s, not configured to restart" % self.name
 
@@ -123,9 +128,9 @@ class Template(object):
         self.filename = filename
 
     def render(self, service):
-        context = service.get_default_context()
+        context = service.get_default_context(withpid=False)
 
-        full_path = os.path.join(context['project_dir'], self.filename)
+        full_path = os.path.join(self.filename.format(**context))
         templated_path = os.path.splitext(full_path)[0]
 
         contents = open(full_path).read().decode("utf8")
@@ -133,19 +138,19 @@ class Template(object):
         open(templated_path, "w").write(contents.encode("utf8"))
         return templated_path
 
-def deploy(services, stop=False):
+def deploy(services, stop=False, quick=False):
     for service in services:
         if stop:
             if service.is_running():
                 service.stop()
         elif service.is_running():
-            service.restart()
+            service.restart(quick)
         else:
-            service.start()
+            service.start(quick)
 
 if __name__ == "__main__":
     import sys
     service_objs = []
     for name, conf in SERVICES.items():
         service_objs.append(Service(name, **conf))
-    deploy(service_objs, stop="stop" in sys.argv)
+    deploy(service_objs, stop="stop" in sys.argv, quick="--quick" in sys.argv)

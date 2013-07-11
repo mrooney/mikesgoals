@@ -6,7 +6,7 @@ Date.prototype.getDOY = function() {
 goals = {}
 
 goals.on_error = function() {
-    alert('Alas, an error has occurred.');
+    alert('Alas, an error has occurred. Please log out and back in again.');
     _gaq.push(['_trackEvent', 'api', 'error']);
 }
 

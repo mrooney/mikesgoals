@@ -2,7 +2,7 @@ BeautifulSoup<4.0
 Jinja2
 South
 bpython
-coffin
+coffin==0.3.7
 cssselect
 django-nose
 django-smtp-ssl

@@ -11,6 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 from goals.models import Goal, User
 
 import cjson
+import datetime
+import re
 
 def r2r(template, request, data=None):
     if data is None:
@@ -39,6 +41,13 @@ def totals(request):
             pipe.get(k)
         totals = [{'date': k, 'count': c} for k in r.keys() for c in pipe.execute()]
     return r2r("totals.jinja",request,{'totals':totals})
+
+@json_response
+def analytics(request):
+    users = set()
+    for key in Goal.redis.keys("user:*:goal:*:{}".format((datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d"))):
+        users.add(re.match("user:(\d+):", key).groups()[0])
+    return {"unique_usergoals_yesterday": len(users)}
 
 @user_passes_test(lambda u: u.is_superuser)
 def command(request):

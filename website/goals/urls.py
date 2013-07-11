@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', views.goals, name="home"),
+    url(r'^analytics/$', views.analytics, name="analytics"),
     url(r'^totals/$', views.totals, name="totals"),
     url(r'^github/$', views.github, name="github"),
 

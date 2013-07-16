@@ -14,9 +14,9 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-ALLOWED_HOSTS = ["goals.rowk.com", "localhost"]
-
 MANAGERS = ADMINS
+
+ALLOWED_HOSTS = ["goals.rowk.com", "localhost"]
 
 DATABASES = {
     'default': {

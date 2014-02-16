@@ -29,6 +29,16 @@
         {% if not goals %}
             <div class="text-center"><h1><a href="#" class="newGoal">New Goal</a></h1></div>
         {% endif %}
+    {% else %}
+        <div class="jumbotron">
+            <h2>Accomplish Your Goals!</h2>
+            <p class="lead">Mike's Goals makes it simple to define your goals and track your progress.</p>
+            <a class="btn btn-large btn-success" href="{% url signup %}">Sign up for free</a>
+            <br/>or <a href="{% url login %}">login</a>
+            {% if 'foursquare' in request.GET %}
+                <a href="{% url socialauth_begin 'foursquare' %}">login with Foursquare</a>
+            {% endif %}
+        </div>
     {% endif %}
     <table id="trackerTable">
         {% set current_freq = 1 %}
@@ -72,17 +82,6 @@
             </div>
         </form>
     </div>
-    {% if not request.user.is_authenticated()  %}
-        <div class="jumbotron">
-            <h2>Accomplish Your Goals!</h2>
-            <p class="lead">Mike's Goals makes it simple to define your goals and track your progress.</p>
-            <a class="btn btn-large btn-success" href="{% url signup %}">Sign up for free</a>
-            <br/>or <a href="{% url login %}">login</a>
-            {% if 'foursquare' in request.GET %}
-                <a href="{% url socialauth_begin 'foursquare' %}">login with Foursquare</a>
-            {% endif %}
-        </div>
-    {% endif %}
 {% endblock %}
 {% block after_container %}
     {% if not request.user.is_authenticated() %}

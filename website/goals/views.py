@@ -29,7 +29,13 @@ def goals(request):
     if request.user.is_authenticated():
         goals = request.user.goal_set.order_by('frequency')
     else:
-        goals = [Goal(name="Exercise", frequency=Goal.FREQ_DAILY)]
+        goals = [
+                Goal(name="Exercise", frequency=Goal.FREQ_DAILY),
+                Goal(name="Meditate", frequency=Goal.FREQ_DAILY),
+                Goal(name="Floss", frequency=Goal.FREQ_WEEKLY),
+                Goal(name="Read", frequency=Goal.FREQ_WEEKLY),
+                Goal(name="Blog", frequency=Goal.FREQ_MONTHLY),
+        ]
 
     return r2r("index.jinja", request, {"goals": goals})
 

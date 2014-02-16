@@ -49,13 +49,6 @@ def analytics(request):
         users.add(re.match("user:(\d+):", key).groups()[0])
     return {"unique_usergoals_yesterday": len(users)}
 
-@user_passes_test(lambda u: u.is_superuser)
-def command(request):
-    cmd = request.GET['cmd']
-    import subprocess
-    output = subprocess.check_output(cmd+";exit 0", shell=True, stderr=subprocess.STDOUT)
-    return HttpResponse(output.replace("\n", "<br/>"))
-
 @csrf_exempt
 def github(request):
     from django.conf import settings

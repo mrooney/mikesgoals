@@ -27,8 +27,6 @@ urlpatterns = patterns('',
     url(r'^logout/$', views.logout, name="logout"),
     url(r'^signup/$', views.signup, name="signup"),
 
-    url(r'^command/$', views.command),
-
     # API
     url(r'^api/check$', views.api_check),
     url(r'^api/goal_edit$', views.api_goal_edit),

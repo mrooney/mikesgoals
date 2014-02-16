@@ -25,11 +25,12 @@ def json_response(func):
         return HttpResponse(cjson.encode(func(*args, **kwargs)), mimetype="application/json")
     return decorated
 
-
 def goals(request):
-    goals = []
     if request.user.is_authenticated():
         goals = request.user.goal_set.order_by('frequency')
+    else:
+        goals = [Goal(name="Exercise", frequency=Goal.FREQ_DAILY)]
+
     return r2r("index.jinja", request, {"goals": goals})
 
 def totals(request):

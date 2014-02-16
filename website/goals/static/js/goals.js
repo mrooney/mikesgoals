@@ -3,8 +3,6 @@ Date.prototype.getDOY = function() {
     return Math.ceil((this - onejan) / 86400000);
 }
 
-goals = {}
-
 goals.on_error = function() {
     alert('Alas, an error has occurred. Please log out and back in again.');
     _gaq.push(['_trackEvent', 'api', 'error']);
@@ -15,6 +13,7 @@ goals.reload = function() {
 }
 
 goals.api = function(action, element) {
+    if (!goals.is_authenticated) { return; }
     var id = element.data('goal-id');
     var date = element.data('goal-date');
     $.get('/api/check', {action: action, id: id, date: date, breaker: Math.random()})

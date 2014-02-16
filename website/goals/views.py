@@ -61,7 +61,7 @@ def github(request):
     from django.conf import settings
     import subprocess
     subprocess.check_call(["git", "pull"], cwd=settings.WEBSITE_DIR)
-    subprocess.check_call(["python", "deploy.py"], cwd=settings.WEBSITE_DIR)
+    subprocess.check_call(["pbdeploy"], cwd=settings.WEBSITE_DIR)
     return HttpResponse()
 
 def login(request):

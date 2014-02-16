@@ -46,8 +46,7 @@
                     {{ render_date(date, goal.frequency) }}<br/>
                     {% for i in range(goal.get_date_count(date)) -%}
                         <div class="check"></div>
-                    {%- endfor %}
-                    </td>
+                    {%- endfor %}</td>
                 {% endfor %}
         {% endfor %}
     </table>

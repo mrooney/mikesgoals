@@ -24,19 +24,19 @@ goals.api = function(action, element) {
 }
 
 goals.increment = function() {
-    var element = $(this);
+    var box = $(this);
     var img = $('<div class="check"></div>');
-    img.appendTo(element);
-    goals.api('increment', element);
+    img.appendTo(box.find('.checkWrapper'));
+    goals.api('increment', box);
     return false;
 }
 
 goals.decrement = function(event) {
-    var element = $(this);
     event.stopPropagation();
-    var parent = element.parent();
+    var element = $(this);
+    var box = element.parent().parent();
     element.remove();
-    goals.api('decrement', parent);
+    goals.api('decrement', box);
     return false;
 }
 

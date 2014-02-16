@@ -55,9 +55,9 @@
                 {% for date in goal.get_trailing_dates() %}
                     <td class="trackBox {{"current" if loop.last else "subtle" }}" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
                     {{ render_date(date, goal.frequency) }}<br/>
-                    {% for i in range(goal.get_date_count(date)) -%}
+                    <div class="checkWrapper">{% for i in range(goal.get_date_count(date)) -%}
                         <div class="check"></div>
-                    {%- endfor %}</td>
+                    {%- endfor %}</div></td>
                 {% endfor %}
         {% endfor %}
     </table>

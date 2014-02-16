@@ -129,6 +129,10 @@ div.error {
     cursor: pointer;
 }
 
+#trackerTable .checkWrapper {
+    min-height: 22px;
+}
+
 #trackerTable tr .goalTitle {
     width: 140px;
     height: 40px;

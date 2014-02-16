@@ -33,6 +33,11 @@ h3.muted a {
     padding: 14px 24px;
 }
 
+.demo-text {
+    text-align: center;
+    margin-bottom: -10px;
+}
+
 /* Supporting marketing content */
 .marketing {
     margin: 60px 0;

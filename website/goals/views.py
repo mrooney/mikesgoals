@@ -12,6 +12,7 @@ from goals.models import Goal, User
 
 import cjson
 import datetime
+import random
 import re
 
 def r2r(template, request, data=None):
@@ -36,6 +37,8 @@ def goals(request):
                 Goal(name="Read", frequency=Goal.FREQ_WEEKLY),
                 Goal(name="Blog", frequency=Goal.FREQ_MONTHLY),
         ]
+        for goal in goals:
+            goal.get_date_count = lambda d: random.randint(0, 2)
 
     return r2r("index.jinja", request, {"goals": goals})
 

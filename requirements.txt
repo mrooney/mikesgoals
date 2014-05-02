@@ -18,7 +18,7 @@ httplib2==0.8
 lxml==3.1.0
 nose==1.2.1
 oauth2==1.5.211
-pbdeploy==1.5
+pbdeploy==1.7
 python-cjson==1.0.5
 python-dateutil==2.1
 python-openid==2.2.5

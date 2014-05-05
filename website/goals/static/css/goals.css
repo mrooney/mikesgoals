@@ -106,6 +106,10 @@ div.error {
     font-weight: bold;
 }
 
+#trackerTable td.current .date {
+    text-decoration: underline;
+}
+
 #trackerTable td.subtle {
 }
 

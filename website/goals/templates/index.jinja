@@ -53,13 +53,13 @@
                     <span class="name">{{ goal.name }}</span>
                     <span class="delete"><img src="/static/img/delete.png" width="16" height="16"></span>
                 </td>
-                {% for date in goal.get_trailing_dates() %}
+                {% for date in goal.get_trailing_dates() -%}
                     <td class="trackBox {{"current" if loop.last else "subtle" }}" data-goal-id="{{ goal.id }}" data-goal-date="{{ date }}">
-                    {{ render_date(date, goal.frequency) }}<br/>
+                    <div class="date">{{ render_date(date, goal.frequency) }}</div>
                     <div class="checkWrapper">{% for i in range(goal.get_date_count(date)) -%}
                         <div class="check"></div>
                     {%- endfor %}</div></td>
-                {% endfor %}
+                {%- endfor %}
         {% endfor %}
     </table>
     <div id='new_goal'>

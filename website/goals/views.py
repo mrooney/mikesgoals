@@ -117,6 +117,7 @@ def signup(request):
 
 @json_response
 def api_goal_delete(request):
+    if not request.user.is_authenticated(): return {"logged_out": True}
     goal_id = int(request.GET['goal'])
 
     if not Goal.objects.filter(id=goal_id, user__id=request.user.id).count():
@@ -127,6 +128,7 @@ def api_goal_delete(request):
 
 @json_response
 def api_goal_edit(request):
+    if not request.user.is_authenticated(): return {"logged_out": True}
     goal_id = int(request.GET['goal'])
     goal_name = request.GET['name']
 
@@ -138,6 +140,7 @@ def api_goal_edit(request):
 
 @json_response
 def api_goal_new(request):
+    if not request.user.is_authenticated(): return {"logged_out": True}
     goal_name = request.GET['name']
     goal_freq = request.GET['frequency']
 
@@ -146,6 +149,7 @@ def api_goal_new(request):
 
 @json_response
 def api_check(request):
+    if not request.user.is_authenticated(): return {"logged_out": True}
     goal_id = request.GET['id']
     goal_date = request.GET['date']
     action = request.GET['action']

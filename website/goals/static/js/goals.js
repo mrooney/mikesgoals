@@ -8,8 +8,12 @@ goals.on_error = function() {
     _gaq.push(['_trackEvent', 'api', 'error']);
 }
 
-goals.reload = function() {
-    window.location.reload();
+goals.reload = function(response) {
+    if (response && response.logged_out === true) {
+        alert('It appears you are no longer logged in. Please reload the page and log in again.');
+    } else {
+        window.location.reload();
+    }
 }
 
 goals.api = function(action, element) {
@@ -17,8 +21,12 @@ goals.api = function(action, element) {
     var id = element.data('goal-id');
     var date = element.data('goal-date');
     $.get('/api/check', {action: action, id: id, date: date, breaker: Math.random()})
-        .success(function() {
-            _gaq.push(['_trackEvent', 'api', action]);
+        .success(function(response) {
+            if (response.logged_out === true) {
+                alert('It appears you are no longer logged in. Please reload the page and log in again.');
+            } else {
+                _gaq.push(['_trackEvent', 'api', action]);
+            }
         })
         .error(goals.on_error);
 }
@@ -64,9 +72,9 @@ goals.new = function(event) {
             n.css({'border':'1px solid #DDDDDD'});
             $.get('/api/goal_new',$('form').serialize(), function(){$('div#new_goal').slideUp()})
                 .error(goals.on_error)
-                .success(function() {
+                .success(function(response) {
                     _gaq.push(['_trackEvent', 'api', 'new']);
-                    goals.reload();
+                    goals.reload(response);
                 });
         }
  return false

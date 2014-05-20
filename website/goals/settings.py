@@ -148,6 +148,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SESSION_COOKIE_AGE = 24*60*60*30
+
 FOURSQUARE_CONSUMER_KEY = 'foo'
 # TODO: read these from an unversioned file like open(os.path.join(WEBSITE_DIR, "foursquare.secret")).read()
 FOURSQUARE_CONSUMER_SECRET = 'bar'

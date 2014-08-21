@@ -1,6 +1,6 @@
 BeautifulSoup==3.2.1
 Coffin==0.3.8
-Django==1.5.1
+Django==1.5.9
 Jinja2==2.6
 Pygments==1.6
 South==0.7.6

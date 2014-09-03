@@ -136,7 +136,7 @@ INSTALLED_APPS = (
     'compressor',
     'django_nose',
     'goals',
-    'social_auth',
+    #'social_auth',
 )
 if not (DEBUG or TESTING):
     INSTALLED_APPS += (
@@ -144,7 +144,7 @@ if not (DEBUG or TESTING):
     )
 
 AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.contrib.foursquare.FoursquareBackend',
+    #'social_auth.backends.contrib.foursquare.FoursquareBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 

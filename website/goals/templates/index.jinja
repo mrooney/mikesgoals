@@ -35,9 +35,9 @@
             <p class="lead">Mike's Goals makes it simple to define your goals and track your progress.</p>
             <a class="btn btn-large btn-success" href="{% url signup %}">Sign up for free</a>
             <br/>or <a href="{% url login %}">login</a>
-            {% if 'foursquare' in request.GET %}
+            {#{% if 'foursquare' in request.GET %}
                 <a href="{% url socialauth_begin 'foursquare' %}">login with Foursquare</a>
-            {% endif %}
+            {% endif %}#}
         </div>
         <div class="demo-text text-success"><b>live demo</b>: click a box to add a check or click an existing check to remove it</div>
     {% endif %}

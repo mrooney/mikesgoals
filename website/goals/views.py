@@ -2,7 +2,7 @@ from coffin.shortcuts import render_to_response
 from django.contrib.auth import authenticate, logout as logout_user, login as login_user
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
-from django.core.validators import email_re
+from django.utils.html import simple_email_re as email_re
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import RequestContext

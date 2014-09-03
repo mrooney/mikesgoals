@@ -1,7 +1,6 @@
 from django import forms
 from django.template import loader
 from django.utils.http import int_to_base36
-from django.contrib.auth.hashers import UNUSABLE_PASSWORD
 from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import get_current_site
@@ -27,8 +26,7 @@ class PasswordResetForm(forms.Form):
                                                is_active=True)
         if not len(self.users_cache):
             raise forms.ValidationError(self.error_messages['unknown'])
-        if any((user.password == UNUSABLE_PASSWORD)
-               for user in self.users_cache):
+        if any(user.has_unusable_password() for user in self.users_cache):
             raise forms.ValidationError(self.error_messages['unusable'])
         return email
 

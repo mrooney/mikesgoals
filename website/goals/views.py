@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, logout as logout_user, login as lo
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from django.utils.html import simple_email_re as email_re
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
@@ -20,11 +20,6 @@ def r2r(template, request, data=None):
         data = {}
     data['request'] = request
     return render_to_response(template, data, context_instance=RequestContext(request))
-
-def json_response(func):
-    def decorated(*args, **kwargs):
-        return HttpResponse(cjson.encode(func(*args, **kwargs)), mimetype="application/json")
-    return decorated
 
 def goals(request):
     if request.user.is_authenticated():
@@ -52,12 +47,11 @@ def totals(request):
         totals = [{'date': k, 'count': c} for k in r.keys() for c in pipe.execute()]
     return r2r("totals.jinja",request,{'totals':totals})
 
-@json_response
 def analytics(request):
     users = set()
     for key in Goal.redis.keys("user:*:goal:*:{}".format((datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d"))):
         users.add(re.match("user:(\d+):", key).groups()[0])
-    return {"unique_usergoals_yesterday": len(users)}
+    return JsonResponse({"unique_usergoals_yesterday": len(users)})
 
 @csrf_exempt
 def github(request):
@@ -115,7 +109,6 @@ def signup(request):
         login_user(request, user)
         return redirect("home")
 
-@json_response
 def api_goal_delete(request):
     if not request.user.is_authenticated(): return {"logged_out": True}
     goal_id = int(request.GET['goal'])
@@ -124,9 +117,8 @@ def api_goal_delete(request):
         raise Exception("401 Unauthorized")
 
     Goal.objects.filter(id=goal_id).delete()
-    return {}
+    return JsonResponse({})
 
-@json_response
 def api_goal_edit(request):
     if not request.user.is_authenticated(): return {"logged_out": True}
     goal_id = int(request.GET['goal'])
@@ -136,18 +128,16 @@ def api_goal_edit(request):
         raise Exception("401 Unauthorized")
 
     Goal.objects.filter(id=goal_id).update(name=goal_name)
-    return {}
+    return JsonResponse({})
 
-@json_response
 def api_goal_new(request):
     if not request.user.is_authenticated(): return {"logged_out": True}
     goal_name = request.GET['name']
     goal_freq = request.GET['frequency']
 
     Goal(name=goal_name, frequency=goal_freq, user=request.user).save()
-    return {}
+    return JsonResponse({})
 
-@json_response
 def api_check(request):
     if not request.user.is_authenticated(): return {"logged_out": True}
     goal_id = request.GET['id']
@@ -159,7 +149,7 @@ def api_check(request):
 
     incr = 1 if action == "increment" else -1
     Goal.objects.get(id=goal_id).incr(goal_date, incr)
-    return {}
+    return JsonResponse({})
 
 def password_reset(request, is_admin_site=False,
                    template_name='registration/password_reset_form.html',

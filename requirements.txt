@@ -1,6 +1,6 @@
 BeautifulSoup==3.2.1
 git+git://github.com/coffin/coffin@7b5d514
-Django==1.7.5
+Django==1.7.6
 Jinja2==2.6
 Pygments==1.6
 bpython==0.12

@@ -66,6 +66,7 @@ a.newGoal {
     width: 16px;
     height: 16px;
     background: url(/static/img/accept.png);
+    background-size: cover;
     display: inline-block;
 }
 
